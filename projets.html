@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style_section.css">
+</head>
+<body>
+    <nav>
+    <ul>
+      <li><a href="homepage.html" class="lien_nav">
+        Home
+      </a></li>
+      <li><a href="Mon_stage.html" class="lien_nav">
+        Stage
+      </a></li>
+      <li><a href="Mon_parcours.html" class="lien_nav">
+        Parcours
+      </a></li>
+      <li class="dropdown">
+        <a href="projets.html" class="lien_nav">Projets</a>
+          <ul class="dropdown-content">
+              <li><a class="burger_box" href="projets.html#main">Reconnaissance de main</a></li>
+              <li><a class="burger_box" href="projets.html#renforcement">Article : machine learning</a></li>
+              <li><a class="burger_box" href="projets.html#sandbagging">LLM sandbagging</a></li>
+              <li><a class="burger_box" href="projets.html#minecraft">Musée virtuel sur Minecraft</a></li>
+              <li><a class="burger_box" href="projets.html#scraping">Scraping Goodreads</a></li>
+
+          </ul>
+      </li>
+    </ul>
+  </nav>
+  <h1 class="projets">Mes projets</h1>
+  <article>
+    <H2 id="main">
+      Reconnaître une personne grâce à sa main
+    </H2>
+      
+    <div class="partie">
+      <div class="image_text">
+          <img src="e1.svg" alt="etoil" width="40" class="mini">
+        <div class="text">
+          <p>
+          Je voudrais montrer qu’avec des moyens relativement modestes (ceux d’un étudiant en licence), 
+          il est possible de mettre en œuvre la reconnaissance d’identité à partir de la main. 
+          Ma motivation première est de sensibiliser aux dangers de la vision par ordinateur 
+          et d’encourager à la protection des données personnelles. 
+          En effet, si avec des ressources limitées on peut identifier une personne masquée grâce à sa main, 
+          une organisation ou un État, disposant de moyens bien plus importants, pourrait le faire à grande échelle.
+        </p>
+        <p>
+          Par ailleurs, la reconnaissance faciale, par l’iris ou par l’empreinte digitale, 
+          a déjà fait l’objet de nombreux travaux, tandis que la reconnaissance de la main reste moins étudiée. 
+          Pourtant, les informations fournies par une image de main sont très riches 
+          et les implications éthiques particulièrement fortes. 
+          Aujourd’hui, son étude demeure en grande partie confinée au milieu académique, 
+          et l’on trouve peu de codes ou de jeux de données accessibles au grand public, 
+          surtout pour des environnements non contrôlés. 
+          J’aimerais donc contribuer à ce domaine en le rendant plus ouvert.
+        </p>
+        <p>
+          Mon objectif est donc de construire un modèle de reconnaissance d'image 
+          pour pouvoir importer la photo d’une main 
+          et déterminer si elle correspond à une personne présente dans mon jeu de données.
+          Plus d'informattion <a href="reco_mains.html">ici</a>.
+        </p>
+      </div>
+    </div>
+      <div class="image">
+        <img src="main_carré.png" alt="image_test" width="400">
+      </div>
+      </div>
+  </article>
+  <article>
+    <H2 id="renforcement">
+      Article de mathématiques sur l'apprentissage par renforcement en machine learning
+    </H2>
+    <div class="partie">
+      <div class="image">
+        <img src="noire.jpg" alt="image_test" width="500">
+      </div>
+      <div class="image_text">
+          <img src="e2.svg" alt="etoil" width="40" class="mini">
+        <div class="text">
+
+          <p>Notre article, <em>L’apprentissage par renforcement en machine learning</em>, traite de la manière dont une machine peut apprendre à prendre de bonnes décisions par essais et erreurs. Nous nous intéressons à la façon dont un agent interagit avec un environnement incertain pour trouver la meilleure suite d’actions possible, celle qui maximise les récompenses qu’il reçoit.</p>
+
+          <p>Nous nous appuyons sur les travaux fondateurs de Richard Bellman, qui a introduit la programmation dynamique et les équations portant son nom, ainsi que sur ceux de Sutton et Barto, auteurs d’un ouvrage de référence sur le sujet. Ces bases théoriques nous ont permis d’étudier les processus de décision markoviens, un cadre mathématique qui modélise les choix successifs d’un agent.</p>
+
+          <p>Notre objectif est de comprendre comment les équations de Bellman permettent d’estimer une stratégie optimale et comment l’algorithme du Q-learning, basé sur le critère de Robbins-Monro, apprend progressivement à atteindre cette stratégie sans connaître à l’avance les règles exactes de l’environnement.</p>
+
+          <p>Pour illustrer ces principes, nous présentons deux exemples : un robot aspirateur qui apprend à se déplacer efficacement malgré les obstacles, et le problème des bandits manchots, où l’on cherche à équilibrer exploration et exploitation pour maximiser les gains. À travers ces cas, nous montrons comment la théorie se traduit en apprentissage concret et adaptatif.</p>
+
+        </div>
+      </div>
+    </div>
+  </article>
+  <article>
+    <H2 id="sandbagging">
+      Sandbagging et LLM : sous performer intentionnellement lors d'évaluations
+    </H2>
+    <div class="partie">
+      <div class="image_text">
+          <img src="e3.svg" alt="etoil" width="40" class="mini">
+        <div class="text">
+
+          <p>Dans le cadre d’un projet en science des données, j’ai étudié le comportement stratégique potentiel d’un modèle de langage, Phi-4, développé par Microsoft. Mon objectif était de déterminer s’il pouvait adopter une forme de « sandbagging », c’est-à-dire une sous-performance volontaire lors de tests, dans le but d’influencer sa mise en service.</p>
+
+          <p>Je me suis inspiré des travaux récents de van der Weij et de Meinke, qui ont observé ce phénomène chez des modèles plus puissants comme Claude-Sonnet-3.5 et OpenAI o1. Pour tester cette hypothèse, j’ai soumis Phi-4 à deux types de consignes : dans l’une, de bonnes performances entraînaient une pénalité, et dans l’autre, de mauvaises performances menaient à une exclusion. Chaque scénario comportait 1300 calculs de multiplication aléatoires, ce qui m’a permis de comparer les résultats selon le contexte donné.</p>
+
+          <p>À l’aide d’un test du chi-deux, j’ai analysé la différence de précision entre les deux situations. Les résultats ont montré une très faible variation, statistiquement non significative, indiquant que Phi-4 ne modifie pas son comportement selon les conditions de déploiement. Autrement dit, il n’a pas montré de signe de sandbagging.</p>
+
+          <p>Ces résultats suggèrent que ce type de stratégie n’émerge peut-être qu’à partir d’un certain niveau de complexité des modèles ou des tâches. Ce travail met en avant la façon dont la génération et l’analyse de données peuvent aider à comprendre les comportements adaptatifs des intelligences artificielles.</p>
+
+        </div>
+      </div>
+      <div class="image">
+        <img src="meme_sandbagging.png" alt="image_test" width="350">
+      </div>
+      </div>
+  </article>
+
+  <article>
+    <H2 id="minecraft">
+      Musée virtuel sur minecraft : la finitude
+    </H2>
+    <div class="partie">
+      <div class="image">
+        <img src="minecraft.webp" alt="image_test" width="550">
+      </div>
+      <div class="image_text">
+          <img src="e4.svg" alt="etoil" width="40" class="mini">
+        <div class="text">
+
+          <p>Dans le cadre d’un projet en histoire de l’art, nous avons conçu une exposition virtuelle intitulée <em>La Finitude</em>, autour des représentations du temps, de la mort et de la condition humaine. Pour donner vie à ce thème, nous avons choisi de réaliser l’exposition dans l’univers de Minecraft, un espace qui nous a permis d’imaginer librement l’architecture et la scénographie des salles.</p>
+
+          <p>Nous avons réparti le parcours en trois grandes sections : la prise de conscience de la finitude, la fin d’un monde et la lutte contre la fatalité. Chaque salle explorait un aspect différent de notre rapport au temps et à la disparition, à travers des œuvres allant de l’Antiquité à l’art contemporain. Ce fil conducteur nous a permis d’établir des dialogues entre des pièces très éloignées dans le temps et la culture.</p>
+
+          <p>Je me suis personnellement occupé de la partie Minecraft : j’ai conçu toute la scénographie, en veillant à créer une atmosphère adaptée à chaque salle, ainsi qu’à la mise en valeur des œuvres choisies. J’ai aussi participé à la sélection des pièces exposées, afin d’assurer la cohérence du propos esthétique et symbolique. </p>
+
+          <p>Grâce à ce travail collectif, nous avons pu allier réflexion artistique et création numérique, en proposant une expérience immersive où la question de la finitude devient à la fois sensible et visuelle.</p>
+          <p>Plus d'information sur ce projet <a href="https://odhn.ens.psl.eu/newsroom/invitation-aux-voyages-numeriques">ici</a></p>.
+
+        </div>
+      </div>
+    </div>
+  </article>
+  <article>
+    <H2 id="scraping">
+      Scraping du site web goodreads.com dans le cadre d'une recherche
+    </H2>
+      
+    <div class="partie">
+      <div class="image_text">
+          <img src="e5.svg" alt="etoil" width="40" class="mini">
+        <div class="text">
+          <p>
+            c'est dans les backs
+        </p>
+      </div>
+    </div>
+      <div class="image">
+        <img src="goodreads.png" alt="image_test" width="450">
+      </div>
+      </div>
+  </article>
+</body>
+</html>
+
