@@ -148,8 +148,8 @@ nav li {
 .cases {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 10rem;
+    justify-content: space-arround;
+    gap: 4rem;
     padding: 2rem 12%;
     margin: 0.5rem auto;
 }
