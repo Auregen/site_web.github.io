@@ -88,7 +88,7 @@ function createImages() {
     currentImagesData.forEach((data, index) => {
         const img = document.createElement('img');
         img.className = 'image-item';
-        img.src = `https://raw.githubusercontent.com/Auregen/data-images/main/mains_raw/${data.imageName}`;        img.alt = data.imageName;
+        img.src = `https://media.githubusercontent.com/media/Auregen/data-images/main/mains_raw/${data.imageName}`;        img.alt = data.imageName;
         img.dataset.category = data.category;
         img.dataset.index = index;
         img.style.width = `${imageSize}px`;
