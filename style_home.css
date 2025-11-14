@@ -1,6 +1,16 @@
 @font-face {
-    font-family: "myFont";
+    font-family: "Rounded";
     src: url("SF-Pro-Rounded-Medium.otf");
+}
+
+@font-face {
+    font-family: "Regular";
+    src: url("SFPRODISPLAYREGULAR.OTF");
+}
+
+@font-face {
+    font-family: "Medium";
+    src: url("SFPRODISPLAYMEDIUM.OTF");
 }
 
 :root {
@@ -102,7 +112,7 @@ nav li {
 
 body {
     background-color: #F0EEE6;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: "Medium", sans-serif;
     color: #000000;
     margin: 0;
     padding: 0;
@@ -226,7 +236,7 @@ nav li {
     margin: 10vh auto 0;
     text-align: center;
     font-size: clamp(1.5rem, 2.5vw, 2.5rem);
-    font-family: "myFont", sans-serif;
+    font-family: "Rounded", sans-serif;
     padding: 0 5%;
 }
 
