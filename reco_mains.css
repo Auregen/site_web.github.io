@@ -3,6 +3,12 @@
     src: url("SF-Pro-Rounded-Medium.otf");
 }
 
+@font-face {
+    font-family: "Medium";
+    src: url("SFPRODISPLAYMEDIUM.OTF");
+}
+
+
 :root {
     --primary-bg: #F0EEE6;
     --panel-bg: #E3DACC;
@@ -25,7 +31,7 @@ html {
 
 body {
     background-color: var(--primary-bg);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: "Medium", sans-serif;
     color: var(--text-primary);
     min-height: 100vh;
 }
