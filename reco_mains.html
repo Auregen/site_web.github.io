@@ -71,7 +71,84 @@
         </div>
     
         <button id="randomizeBtn" disabled style="display: none;">Disposition Aléatoire</button>
-    
+    <div class="section-resultats">
+        <h2>Résultats</h2>
+            <table border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>Dataset</th>
+                    <th>Expériences</th>
+                    <th>Nb images</th>
+                    <th>Nb classes</th>
+                    <th>Accuracy</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Hands and Palm Images Dataset</td>
+                    <td>Prototype TF (CPU)</td>
+                    <td>216</td>
+                    <td>8</td>
+                    <td>68%</td>
+                </tr>
+                <tr>
+                    <td>Hands and Palm Images Dataset</td>
+                    <td>Migration PyTorch (CV 5-fold)</td>
+                    <td>520</td>
+                    <td>19</td>
+                    <td>moy. fold 82%</td>
+                </tr>
+                <tr>
+                    <td>Données personnelles</td>
+                    <td>Test variabilité</td>
+                    <td>80</td>
+                    <td>4</td>
+                    <td>moy. fold 82%, test 100%</td>
+                </tr>
+                <tr>
+                    <td>BMPD</td>
+                    <td>Entraînement large</td>
+                    <td>1 612</td>
+                    <td>41</td>
+                    <td>test 98,76%</td>
+                </tr>
+                <tr>
+                    <td>BMPD</td>
+                    <td>Avec ROI (fond noir)</td>
+                    <td>1 612</td>
+                    <td>41</td>
+                    <td>test 81,11%</td>
+                </tr>
+                <tr>
+                    <td>BMPD</td>
+                    <td>Après ROI et séparé par côté</td>
+                    <td>800 (G) / 812 (D)</td>
+                    <td>40 (G) / 41 (D)</td>
+                    <td>Gauche: 85,00% <br> Droite: 87,73%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+        <div class="align_button">
+            <a href="fiche_MVP.pdf" class="lien_case" target="_blank">
+            <div class="mini_case">
+                <p>Fiche du MVP</p>
+            </div>
+            </a>
+
+            <a href="https://www.kaggle.com/code/auregen/mvp-notebook" class="lien_case" target="_blank">
+            <div class="mini_case">
+                <p>Lien vers notebook</p>
+            </div>
+            </a>
+
+            <a href="https://www.kaggle.com/datasets/mahdieizadpanah/birjand-university-mobile-palmprint-databasebmpd" class="lien_case" target="_blank">
+            <div class="mini_case">
+                <p>Données</p>
+            </div>
+            </a>
+
+        </div>
         <h2>Dev log</h2>
         
 
@@ -126,6 +203,29 @@
         <div class="image">
             <img src="3mains.png" alt="image_test" width="200">
         </div>
+        <h3>27/10/2025 :</h3>
+
+        <p>Adapter la luminosité s’est finalement révélée être une mauvaise idée : cela n’a pas résolu le problème. En revanche, j’ai observé dans d’autres codes l’usage fréquent des opérations de dilatation et d’érosion, deux méthodes de la bibliothèque OpenCV permettant de détecter des objets. J’ai donc expérimenté avec ces paramètres, et j’obtiens désormais un résultat satisfaisant. Il n’est pas parfait, car le masque déborde parfois sur la main, mais j’y vois une forme de perturbation : cela évoque la présence d’ombres et reste cohérent avec l’objectif de mon projet, qui consiste à reconnaître une personne à partir d’une photo de sa main, même dans des conditions non contrôlées.  
+            Voici un exemple : </p>
+
+        <div class="image">
+            <img src="devlog_main1.JPG" alt="image_test" width="200">
+            <img src="devlog_main2.JPG" alt="image_test" width="300">
+        </div>
+
+        <h3>28/10/2025 :</h3>
+
+        <p>Avec un fond noir, le modèle a une accuracy de 81.11% sur le test. Ce qui suggère bien qu'il s'aidait du fond pour donner le bon label.  
+            J’ai fait tourner mon modèle sur les mains droites, puis sur les mains gauches.  
+            J’obtiens une précision de 85.62 % sur les mains gauches et de 80.98 % sur les mains droites. Il semble donc que le fait d'avoir deux mains différentes pour une même personne n'impacte pas vraiment le modèle.</p>
+        <p>Je considère que mon projet est désormais bien avancé ; l’objectif principal est maintenant de le rendre accessible. J’ai déjà commencé à concevoir une page web illustrant le fonctionnement du modèle. J’aimerais également qu’il soit entièrement reproductible et bien documenté : je vais donc clarifier le code en le commentant et rédiger une bibliographie répertoriant tous les outils utilisés.</p>
+        <p>Si le temps me le permet, j’aimerais concevoir un meilleur ROI, voire un module capable de détecter automatiquement une main dans une image où ce n’est pas l’objet principal, puis de la passer dans mon modèle. Le principal obstacle reste l’obtention d’un jeu de données contenant des photos complètes de personnes, étiquetées selon leur identité et où les mains sont visibles. Ce serait, à mon avis, l’étape finale de ce projet.</p>
+            
+        <h3>29/10/2025 :</h3>
+
+        <p>J'ai rendu mon code plus accessible en le mettant dans un seul notebook. Avant, le ROI, le trie des images gauche et droite ainsi que l'entrainement étaient séparés étant chacun dépendant d'une base de données différentes. Maintenant j'ai une base de donnée et un notebook. J'ai aussi commenté mon code pour qu'il soit plus lisible.  
+            J'ai aussi fait une fonction pour pouvoir entrer une image de mains et avoir les k-mains les plus similaires grâces aux features calculées par le modèle.  
+            J'ai commenté un petit plus mon code pour qu'il soit plus lisible.</p>
     </div>
 </body>
 </html>

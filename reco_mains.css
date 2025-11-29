@@ -247,8 +247,7 @@ button {
 }
 
 button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background-color: #7b7060;
 }
 
 button:active {
@@ -457,5 +456,84 @@ img {
     .image-item:hover {
         transform: none;
     }
+}
+
+/* --- Style du Tableau (Table Results) --- */
+
+/* Conteneur : Juste pour le scroll mobile, sans style visuel de "boîte" */
+.section-resultats {
+    margin: 0 auto clamp(1.5rem, 4vw, 2rem);
+    max-width: min(95%, 1200px);
+    overflow-x: auto; /* Indispensable pour le responsive sur mobile */
+}
+
+table {
+    width: 100%;
+    border-collapse: separate; 
+    border-spacing: 0;
+    min-width: 600px; /* Force une largeur min pour la lisibilité */
+}
+
+/* En-têtes du tableau */
+thead th {
+    background-color: var(--control-bg); /* Fond grisé seulement pour l'entête */
+    color: var(--text-primary);
+    font-family: "myFont", sans-serif;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    padding: clamp(1rem, 1.5vw, 1.25rem);
+    text-align: left;
+    font-weight: normal;
+}
+
+/* Corps du tableau */
+tbody td {
+    /* Pas de couleur de fond, direct sur le fond de page */
+    color: #57524B;
+    padding: clamp(1rem, 1.5vw, 1.25rem);
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    border-bottom: 1px solid var(--control-bg); /* Séparation fine */
+}
+
+/* Retrait de la dernière bordure pour le bas du tableau */
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Colonne Accuracy : Style standard (plus de bleu) */
+tbody td:last-child {
+    font-weight: bold; /* Je garde juste le gras pour la lisibilité, dis-moi si tu veux l'enlever */
+    color: #57524B
+}
+
+/* Partie pour les boutons 
+/* Mini cases */
+
+.mini_case {
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: #CEC6B9;
+    margin: 0;
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    font-weight: 500;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.mini_case:hover { background-color: #7b7060; }
+
+.lien_case {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    flex : 1;
+}
+
+
+.align_button {
+    display: flex;           /* Active le mode flexible */
+    flex-direction: row;     /* Aligne les éléments horizontalement (par défaut) */
+    gap: 1rem;               /* Crée un espace de 1rem entre chaque bouton */
+    justify-content: center; /* Optionnel : centre les boutons horizontalement */
+    flex-wrap: wrap;         /* Optionnel : permet aux boutons de passer à la ligne sur mobile */
 }
 
