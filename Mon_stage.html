@@ -1,40 +1,338 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="style_section.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stage de Recherche - Winogrande</title>
+    <link rel="stylesheet" href="style_stage.css">
 </head>
 <body>
 
-  <nav>
+<nav>
     <ul>
-      <li><a href="homepage.html" class="lien_nav">
-        Home
-      </a></li>
-      <li><a href="Mon_stage.html" class="lien_nav">
-        Stage
-      </a></li>
-      <li><a href="Mon_parcours.html" class="lien_nav">
-        Parcours
-      </a></li>
-      <li class="dropdown">
-        <a href="projets.html" class="lien_nav">Projets</a>
-          <ul class="dropdown-content">
-              <li><a class="burger_box" href="projets.html#main">Reconnaissance de main</a></li>
-              <li><a class="burger_box" href="projets.html#renforcement">Article : machine learning</a></li>
-              <li><a class="burger_box" href="projets.html#sandbagging">LLM sandbagging</a></li>
-              <li><a class="burger_box" href="projets.html#minecraft">Musée virtuel sur Minecraft</a></li>
-              <li><a class="burger_box" href="projets.html#scraping">Scraping Goodreads</a></li>
-
-          </ul>
-      </li>
+        <li><a href="homepage.html" class="lien_nav">Home</a></li>
+        <li><a href="Mon_stage.html" class="lien_nav">Stage</a></li>
+        <li><a href="Mon_parcours.html" class="lien_nav">Parcours</a></li>
+        <li class="dropdown">
+            <a href="projets.html" class="lien_nav">Projets</a>
+            <ul class="dropdown-content">
+                <li><a class="burger_box" href="projets.html#main">Reconnaissance de main</a></li>
+                <li><a class="burger_box" href="projets.html#renforcement">Article : machine learning</a></li>
+                <li><a class="burger_box" href="projets.html#sandbagging">LLM sandbagging</a></li>
+                <li><a class="burger_box" href="projets.html#minecraft">Musée virtuel sur Minecraft</a></li>
+                <li><a class="burger_box" href="projets.html#scraping">Scraping Goodreads</a></li>
+            </ul>
+        </li>
     </ul>
-  </nav>
+</nav>
 
-  <h1 class="stage">Mon stage</h1>
+<div class="container">
+    <h1 class="stage">Analyse du corpus Winogrande</h1>
+    <h3 class="sous-titre">Étude des biais et de la robustesse des LLM sur le raisonnement de bon sens</h3>
+
+    <!-- I. INTRODUCTION -->
+    <article>
+        <h2>I. Le défi du raisonnement de bon sens</h2>
+        <div class="partie">
+            <div class="image_text">
+                <div class="text">
+                    <p>
+                        Le <strong>Winograd Schema Challenge</strong>, proposé en 2012 par Hector Levesque, a été conçu comme une alternative au test de Turing pour mesurer le "raisonnement de bon sens" (<em>common sense reasoning</em>) des machines. Le principe repose sur des phrases contenant un pronom ambigu dont la résolution dépend du contexte.
+                    </p>
+                    <p>Par exemple :</p>
+                    <blockquote>
+                        <em>The city councilmen refused the demonstrators a permit because <strong>they</strong> feared violence.</em><br>
+                        Ici, "they" désigne les <em>councilmen</em>. Mais si on remplace "feared" par "advocated", "they" désigne alors les <em>demonstrators</em>.
+                    </blockquote>
+                    <p>
+                        Si ce test a longtemps été un standard, l'arrivée des modèles comme BERT ou GPT-3 a changé la donne, atteignant des scores supérieurs à 90%. Cependant, cette réussite est suspecte : les modèles comprennent-ils vraiment le sens, ou exploitent-ils des <strong>biais statistiques</strong> ? C'est pour répondre à cette question qu'a été créé <strong>Winogrande</strong> en 2019, un corpus de 44 000 phrases conçu pour être plus robuste.
+                    </p>
+                </div>
+            </div>
+            <!-- Image illustrative si besoin, sinon on laisse le texte prendre la place -->
+        </div>
+    </article>
+
+    <!-- II. ANALYSE STATISTIQUE -->
+    <article>
+        <h2>II. Exploration du corpus</h2>
+        <div class="partie">
+            <div class="image">
+                <!-- Place pour votre graphe Gephi -->
+                <img src="graphe_gephi.png" alt="Analyse Gephi des liens entre les mots du corpus" width="500">
+                <p style="text-align: center; font-size: 0.9rem; color: var(--text-secondary);">Visualisation des co-occurrences (Gephi)</p>
+            </div>
+            <div class="image_text">
+                <div class="text">
+                    <p>
+                        Notre première approche a été l'analyse exploratoire des données. Le jeu de données ayant été produit massivement via Amazon Mechanical Turk, nous suspections des répétitions.
+                    </p>
+                    <p>
+                        Nous avons modélisé le corpus sous forme de graphes où les nœuds sont des mots reliés s'ils apparaissent dans la même phrase. Cette spatialisation (voir ci-contre) a révélé que :
+                    </p>
+                    <ul>
+                        <li>Le mot <strong>"because"</strong> est central, agissant comme un pivot logique quasi-systématique.</li>
+                        <li>Il existe des clusters lexicaux distincts, suggérant des thématiques récurrentes.</li>
+                        <li>Certains mots sont statistiquement plus reliés aux hommes qu'aux femmes, laissant présager des biais de genre.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- III. LES SCHÉMAS -->
+    <article>
+        <h2>III. Détection de Schémas Récurrents</h2>
+        <div class="partie">
+            <div class="image_text">
+                <div class="text">
+                    <p>
+                        L'analyse a montré que de nombreuses phrases reposent sur les mêmes mécanismes logiques. Nous avons identifié et classifié plusieurs types de problèmes récurrents :
+                    </p>
+                    <p><strong>1. Le problème de "Fitting" (Contenant/Contenu) :</strong><br>
+                    Il s'agit de problèmes de taille physique entre deux objets. Nous avons annoté manuellement 400 phrases et entraîné un classifieur qui a détecté <strong>3306 phrases</strong> (sur 40k) relevant de cette logique.<br>
+                    <em>Exemple : "Le plat ne rentre pas dans le sac. _ est trop petit."</em>
+                    </p>
+                    <p><strong>2. Le problème d'Expertise :</strong><br>
+                    Une personne réussit une action car elle possède une compétence ou un statut particulier.<br>
+                    <em>Exemple : "Alice soigne Bob car _ est médecin."</em><br>
+                    Nous avons même identifié des sous-classes, comme l'expertise liée aux études ("_ had been taught by college professors").
+                    </p>
+                    <p><strong>3. Nourriture et Santé :</strong><br>
+                    Liens logiques entre régime alimentaire et condition physique.<br>
+                    <em>Exemple : "Alice hésite entre des frites et des légumes, elle veut être en bonne santé donc elle a choisi _."</em>
+                    </p>
+                    <p>
+                        La présence massive de ces schémas pose question : si une grande partie du corpus se résout par des règles simples répétées, la diversité réelle de Winogrande est moindre qu'annoncée.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- IV. EXPÉRIMENTATIONS LLM -->
+    <!-- IV. EXPÉRIMENTATIONS LLM -->
+    <article>
+        <h2>IV. Expérimentations avec les LLMs</h2>
+        <div class="partie">
+            <div class="text" style="width: 100%;">
+                <p>
+                    Pour tester la robustesse des modèles de langage, nous avons soumis plusieurs LLMs (RoBERTa, Phi-4, Qwen, Mistral, Llama) à des versions <strong>perturbées</strong> du corpus. Notre hypothèse était que si les modèles "comprennent" vraiment les sens des phrases, des changements superficiels ne devraient pas affecter leurs performances.
+                </p>
+                <p><strong>Les perturbations appliquées :</strong></p>
+                <ul>
+                    <li><strong>Inversion de genre :</strong> Remplacement des prénoms masculins par des féminins et inversement (avec adaptation des pronoms <em>he/she</em>, <em>his/her</em>).</li>
+                    <li><strong>Caractères aléatoires :</strong> Remplacement des noms propres par des chaînes sans sens (ex: "Xyza").</li>
+                    <li><strong>Remplacement par synonymes :</strong> Substitution de mots courants par des synonymes plus rares.</li>
+                    <li><strong>Mixité :</strong> Introduction d'un prénom masculin et d'un féminin dans la même phrase pour observer les biais préférentiels.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section-resultats">
+            <h3>Résultats Complets des Perturbations</h3>
+            <!-- Tableau 1 : Vue d'ensemble tous modèles -->
+            <div style="overflow-x: auto; margin-bottom: 2rem;">
+                <table border="1" cellspacing="0" cellpadding="5">
+                    <thead>
+                        <tr>
+                            <th>Perturbation / Modèle</th>
+                            <th>RoBERTa base</th>
+                            <th>RoBERTa instruct</th>
+                            <th>fine-tuned RoBERTa</th>
+                            <th>Sakaguchi's RoBERTa</th>
+                            <th>Phi 4 (14B)</th>
+                            <th>Llama 3.1 8B</th>
+                            <th>Qwen2.5 7B</th>
+                            <th>Qwen 2.5 14B</th>
+                            <th>Mistral 7B</th>
+                            <th>Mistral Nemo 7B</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>original corpus</td>
+                            <td>49.09</td>
+                            <td>49.01</td>
+                            <td>74.27</td>
+                            <td>79.24</td>
+                            <td>73.48</td>
+                            <td>54.06</td>
+                            <td>64.64</td>
+                            <td>72.45</td>
+                            <td>52.40</td>
+                            <td>49.88</td>
+                        </tr>
+                        <tr>
+                            <td>reversed gender</td>
+                            <td>50.83</td>
+                            <td>50.51</td>
+                            <td>66.77</td>
+                            <td>70.17</td>
+                            <td>73.00</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>71.98</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>random character</td>
+                            <td>50.59</td>
+                            <td>50.67</td>
+                            <td>63.93</td>
+                            <td>69.38</td>
+                            <td>64.40</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>synonym replacement</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>71.27</td>
+                            <td>75.30</td>
+                            <td>68.35</td>
+                            <td>50.59</td>
+                            <td>59.35</td>
+                            <td>68.98</td>
+                            <td>51.06</td>
+                            <td>49.80</td>
+                        </tr>
+                        <tr>
+                            <td>nutrition problem</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>85.16</td>
+                            <td>53.87</td>
+                            <td>76.45</td>
+                            <td>88.06</td>
+                            <td>59.35</td>
+                            <td>52.25</td>
+                        </tr>
+                        <tr>
+                            <td>expertise problem</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>87.31</td>
+                            <td>51.88</td>
+                            <td>81.71</td>
+                            <td>89.94</td>
+                            <td>59.55</td>
+                            <td>55.43</td>
+                        </tr>
+                        <tr>
+                            <td>fitting problem</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>81.30</td>
+                            <td>53.53</td>
+                            <td>74.86</td>
+                            <td>83.48</td>
+                            <td>53.99</td>
+                            <td>51.75</td>
+                        </tr>
+                        <tr>
+                            <td>study problem (sub-set)</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>91.39</td>
+                            <td>48.34</td>
+                            <td>78.81</td>
+                            <td>88.74</td>
+                            <td>60.26</td>
+                            <td>53.64</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p style="margin-top: 1rem; font-size: 0.9rem; text-align: center; color: var(--text-secondary);">
+                <em>Les cases marquées "-" indiquent que le test n'a pas été effectué pour cette configuration par manque de ressources computationnelles.</em>
+            </p>
+        </div>
+    </article>
+
+    <!-- V. ANALYSE DES ERREURS -->
+    <article>
+        <h2>V. Analyse qualitative : Biais ou Incohérence ?</h2>
+        <div class="partie">
+            <div class="image_text">
+                <div class="text">
+                    <p>
+                        En analysant les erreurs commises par <strong>Qwen 14B</strong> et <strong>Phi-4</strong> sur les phrases mixant les genres (un homme et une femme), nous avons distingué deux cas de figure : les erreurs dues à un potentiel biais sociétal et celles dues à une incohérence syntaxique ou sémantique introduite par la perturbation.
+                    </p>
+                    
+                    <h4 style="margin-top: 1.5rem; color: var(--text-secondary);">Exemples de potentiels biais de genre</h4>
+                    <p>Dans ces phrases, le modèle se trompe d'une manière qui renforce des stéréotypes :</p>
+                    <ul class="exemples-liste">
+                        <li>
+                            "The bank permitted Leslie to open a checking account, but not Michael, because _ was employed."<br>
+                            <span class="annotation">-> Le modèle échoue à associer l'emploi à Leslie.</span>
+                        </li>
+                        <li>
+                            "Steven was disappointed as Brandy asked him if he had any herb. _ was a stoner."<br>
+                            <span class="annotation">-> Association stéréotypée de la consommation de drogue.</span>
+                        </li>
+                        <li>
+                            "Monica was caught napping in class more often than Craig because _ stayed up all night." <br>
+                            <span class="annotation">-> Association stéréotypée ici aussi</span>
+
+                        </li>
+                    </ul>
+
+                    <h4 style="margin-top: 1.5rem; color: var(--text-secondary);">Exemple d'incohérence</h4>
+                    <p>Parfois, l'erreur vient de la structure de la phrase devenue incohérente, montrant que nos perturbations devraient être plus précises :</p>
+                    <ul class="exemples-liste">
+                        <li>"Hunter gave Tanya two weeks to respond after sending him a demand letter. After that _ will sue him in the court."</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- CONCLUSION -->
+    <article>
+        <h2>Conclusion</h2>
+        <div class="partie">
+            <div class="text" style="text-align: justify;">
+                <p>
+                    Ce stage a permis de mettre en évidence que <strong>Winogrande n'est pas exempt de biais</strong>. L'analyse exploratoire et les tests par perturbations montrent que les modèles de langage s'appuient souvent sur des indices superficiels (noms, fréquences de mots) ou des schémas logiques répétitifs (fitting, expertise) plutôt que sur une compréhension profonde.
+                </p>
+                <p>
+                    Un résultat surprenant a été observé : dans certains cas, mélanger les genres (un homme et une femme) aide le modèle à trouver la bonne réponse, surpassant parfois les performances sur le corpus original. Cela suggère une interaction complexe entre le biais de genre du modèle et sa capacité à utiliser des pronoms distincts (he/she) comme indices grammaticaux pour résoudre l'ambiguïté.
+                </p>
+                <p>
+                    Pour l'avenir, il serait crucial de développer des méthodes de perturbation plus fines (garantissant la cohérence sémantique) pour évaluer la fiabilité réelle de ces benchmarks.
+                </p>
+            </div>
+        </div>
+        
+        <div class="align_button">
+            <a href="Rapport_final.pdf" class="lien_case" target="_blank">
+                <div class="mini_case">
+                    <p>Lire le Rapport Complet (PDF)</p>
+                </div>
+            </a>
+            <a href="https://github.com/mon-pseudo/winogrande-analysis" class="lien_case" target="_blank">
+                <div class="mini_case">
+                    <p>Code & Notebooks</p>
+                </div>
+            </a>
+        </div>
+    </article>
+
+</div>
 </body>
 </html>
-

@@ -1,0 +1,362 @@
+@font-face {
+    font-family: "myFont";
+    src: url("SF-Pro-Rounded-Medium.otf");
+}
+
+@font-face {
+    font-family: "Medium";
+    src: url("SFPRODISPLAYMEDIUM.OTF");
+}
+
+:root {
+    --primary-bg: #F0EEE6;
+    --panel-bg: #E3DACC;
+    --control-bg: #CEC6B9;
+    --text-primary: #000000;
+    --text-secondary: #6d675e;
+    --accent-blue: #3592B1;
+    --accent-orange: #CD6D4E;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    background-color: var(--primary-bg);
+    font-family: "Medium", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* --- Navigation --- */
+nav ul {
+    display: flex;
+    font-weight: 500;
+    justify-content: flex-end;
+    gap: clamp(1rem, 4vw, 4rem);
+    padding: 1rem 5%;
+    font-size: clamp(1.1rem, 1.5vw, 1.8rem);
+    list-style-type: none;
+    margin: 1.2rem 10rem;
+}
+
+.lien_nav {
+    text-decoration: none;
+    color: inherit;
+    padding: 0.2rem 1rem;
+    position: relative;
+    white-space: nowrap;
+}
+
+nav .lien_nav:hover::after {
+    transform: scale(1);
+}
+
+nav .lien_nav::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: #000;
+    transition: transform 0.2s ease-in-out;
+    transform: scale(0);
+    bottom: 0;
+    left: 0;
+}
+
+/* Dropdown */
+nav li {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: max-content;
+    background: var(--panel-bg);
+    border-radius: 8px;
+    list-style-type: none;
+    padding: 0.5rem;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-100%);
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    min-width: 150px;
+}
+
+.dropdown-content li {
+    margin: 0;
+}
+
+.dropdown-content li a {
+    display: block;
+    font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+    text-decoration: none;
+    color: inherit;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.dropdown-content li a:hover {
+    background: var(--control-bg);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* --- Layout & Typography --- */
+.container {
+    max-width: min(95%, 1200px);
+    margin: 0 auto;
+    padding-bottom: 3rem;
+}
+
+h1.stage {
+    display: grid;
+    justify-content: center;
+    margin-top: clamp(2rem, 6vw, 5rem);
+    font-size: clamp(2rem, 8vw, 4.5rem);
+    font-family: "myFont", sans-serif;
+    color: var(--accent-orange); /* Couleur Stage */
+    text-align: center;
+    padding: 0 1rem;
+    margin-bottom: 0.5rem;
+}
+
+h3.sous-titre {
+    display: grid;
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: clamp(2rem, 5vw, 4rem);
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    font-family: "myFont", sans-serif;
+    color: var(--text-secondary);
+    text-align: center;
+    max-width: min(90%, 1000px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h2 {
+    display: grid;
+    justify-content: center;
+    margin-top: clamp(2rem, 6vw, 4rem);
+    margin-bottom: clamp(1rem, 2vw, 2rem);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-family: "myFont", sans-serif;
+    color: var(--text-primary);
+    text-align: center;
+    width: 100%;
+}
+
+/* --- Contenu : Partie (Image + Texte) --- */
+.partie {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: clamp(2rem, 5vw, 4rem);
+    margin: clamp(1rem, 4vw, 3rem) auto;
+    max-width: min(95%, 1400px);
+    padding: 0.5rem 2%;
+}
+
+.text {
+    text-align: justify;
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    line-height: 1.6;
+    flex: 1;
+    min-width: 300px;
+}
+
+.image {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.image_text {
+    max-width: min(95%, 900px);
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* L'étoile flottante */
+.mini {
+    margin-top: 0.3rem;
+    margin-right: clamp(1rem, 2vw, 1.5rem);
+    margin-bottom: 0rem;
+    float: left;
+    width: 40px;
+    height: auto;
+}
+
+/* Citation */
+blockquote {
+    border-left: 4px solid var(--accent-orange);
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+    font-style: italic;
+    background: rgba(255,255,255,0.4);
+    padding: 1rem;
+    border-radius: 0 8px 8px 0;
+}
+
+/* Listes d'exemples */
+ul.exemples-liste {
+    list-style-type: none;
+    margin-top: 1rem;
+}
+
+ul.exemples-liste li {
+    background: var(--panel-bg);
+    margin-bottom: 0.8rem;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.annotation {
+    display: block;
+    margin-top: 0.3rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* --- Tableaux de Résultats --- */
+.section-resultats {
+    margin: 2rem auto;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 600px;
+    margin-top: 1rem;
+}
+
+thead th {
+    background-color: var(--control-bg);
+    color: var(--text-primary);
+    font-family: "myFont", sans-serif;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    padding: 1rem;
+    text-align: left;
+    font-weight: normal;
+}
+
+tbody td {
+    color: #57524B;
+    padding: 1rem;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    border-bottom: 1px solid var(--control-bg);
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* --- Boutons --- */
+.align_button {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+}
+
+.mini_case {
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    background-color: var(--control-bg);
+    font-size: clamp(1rem, 1.2vw, 1.1rem);
+    font-weight: 500;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    min-width: 200px;
+}
+
+.mini_case:hover {
+    background-color: #7b7060;
+    color: #fff;
+}
+
+.lien_case {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* --- Media Queries --- */
+@media (max-width: 1024px) {
+    .partie {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .text {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .image {
+        order: -1; /* Image au dessus sur tablette/mobile */
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin: 0;
+        padding: 1rem;
+    }
+    
+    .dropdown-content {
+        position: static;
+        transform: none;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Correction float sur mobile */
+    .image_text::after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    
+    h1.stage {
+        font-size: 2.5rem;
+    }
+}
