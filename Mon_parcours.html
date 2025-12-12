@@ -1,24 +1,18 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="style_section.css">
+  <title>Mon Parcours</title>
+  <link rel="stylesheet" href="style_parcours.css">
 </head>
 <body>
-    <nav>
+
+  <nav>
     <ul>
-      <li><a href="homepage.html" class="lien_nav">
-        Home
-      </a></li>
-      <li><a href="Mon_stage.html" class="lien_nav">
-        Stage
-      </a></li>
-      <li><a href="Mon_parcours.html" class="lien_nav">
-        Parcours
-      </a></li>
+      <li><a href="homepage.html" class="lien_nav">Home</a></li>
+      <li><a href="Mon_stage.html" class="lien_nav">Stage</a></li>
+      <li><a href="Mon_parcours.html" class="lien_nav">Parcours</a></li>
       <li class="dropdown">
         <a href="projets.html" class="lien_nav">Projets</a>
           <ul class="dropdown-content">
@@ -27,56 +21,227 @@
               <li><a class="burger_box" href="projets.html#sandbagging">LLM sandbagging</a></li>
               <li><a class="burger_box" href="projets.html#minecraft">Musée virtuel sur Minecraft</a></li>
               <li><a class="burger_box" href="projets.html#scraping">Scraping Goodreads</a></li>
-
           </ul>
       </li>
     </ul>
   </nav>
-  <h1 class="parcours">Mon parcours</h1>
-  <article>
-    <H2>
-      L3 CPES DAC
-    </H2>
-    <div class="partie">
-      <div class="text">
-        <p>
-test        </p>
-      </div>
-      <div class="image">
-        <img src="noire.jpg" alt="image_test" width="500">
-      </div>
-      </div>
-  </article>
-    <article>
-    <H2>
-      L2 CPES DAC
-    </H2>
-    <div class="partie">
-      <div class="image">
-        <img src="noire.jpg" alt="image_test" width="500">
-      </div>
-      <div class="text">
-        <p>
-test        </p>
-      </div>
-      
-      </div>
-  </article>
-    <article>
-    <H2>
-      L1 CPES DAC
-    </H2>
-    <div class="partie">
-      <div class="text">
-        <p>
-test        </p>
-      </div>
-      <div class="image">
-        <img src="noire.jpg" alt="image_test" width="500">
-      </div>
-      </div>
-  </article>
-  
-</body>
-</html>
 
+  <h1 class="parcours-title">Mon parcours</h1>
+
+  <div class="timeline">
+
+<div class="year-block">
+      <div class="year-dot"></div>
+      <h2 class="year-title">L3 CPES DAC</h2>
+
+      <div class="semester-card">
+        <h3 class="semester-title">Semestre 5</h3>
+        
+        <div class="domain-grid">
+          <div class="domain-column">
+            <h4>Sciences</h4>
+            <div class="tags-container">
+              <span class="tag">Maths for ML
+                  <span class="tooltip-text">À compléter : description du cours de mathématiques pour le machine learning...</span>
+              </span>
+              <span class="tag">Mathématiques
+                  <span class="tooltip-text">À compléter : description générale du module de mathématiques...</span>
+              </span>
+              <span class="tag">Statistiques
+                  <span class="tooltip-text">À compléter : description du cours de statistiques...</span>
+              </span>
+              <span class="tag">Projet Data Science
+                  <span class="tooltip-text">À compléter : description des projets menés en sciences des données...</span>
+              </span>
+            </div>
+          </div>
+          
+          <div class="domain-column">
+            <h4>Humanités</h4>
+            <div class="tags-container">
+              <span class="tag">Sciences sociales compu.
+                  <span class="tooltip-text">À compléter : description de l'approche computationnelle en sciences sociales...</span>
+              </span>
+              <span class="tag">SES de la culture
+                  <span class="tooltip-text">À compléter : description du cours sur les sciences économiques et sociales de la culture...</span>
+              </span>
+              <span class="tag">Creating website
+                  <span class="tooltip-text">À compléter : description du module de création web...</span>
+              </span>
+              <span class="tag">Littérature et cinéma
+                  <span class="tooltip-text">À compléter : description du cours croisant littérature et cinéma...</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="projects-section">
+          <h4>Projets réalisés</h4>
+          <div class="tags-container">
+            <span class="project-tag p-color-1">Reconnaissance de mains</span>
+            <span class="project-tag p-color-2">Truc avec les américains</span>
+            <span class="project-tag p-color-3">Histoire de l'art</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="year-block">
+      <div class="year-dot"></div>
+      <h2 class="year-title">L2 CPES DAC</h2>
+
+      <div class="semester-card">
+        <h3 class="semester-title">Semestre 4</h3>
+        <div class="domain-grid">
+          <div class="domain-column">
+            <h4>Sciences</h4>
+            <div class="tags-container">
+              <span class="tag">Mathématiques
+                  <span class="tooltip-text">Séries numériques, géométrie analytique, algèbre linéaire (espaces vectoriels, matrices) et probabilités sur espaces dénombrables.</span>
+              </span>
+              <span class="tag">Algorithmique
+                  <span class="tooltip-text">Approfondissement des stratégies (diviser pour régner, gloutons, prog. dynamique), algorithmes de graphes et structures de données.</span>
+              </span>
+              <span class="tag">Science des données
+                  <span class="tooltip-text">Méthodes clés (Machine Learning, réseaux de neurones) et réalisation de projets appliqués sur données réelles.</span>
+              </span>
+              <span class="tag">TAL (NLP)
+                  <span class="tooltip-text">Initiation aux sciences du langage (syntaxe, sémantique) via l'analyse quantitative de bases de données linguistiques massives.</span>
+              </span>
+              <span class="tag">Dataviz
+                  <span class="tooltip-text">Techniques de représentation graphique pour explorer les données culturelles et communiquer des résultats complexes.</span>
+              </span>
+            </div>
+          </div>
+          <div class="domain-column">
+            <h4>Humanités</h4>
+            <div class="tags-container">
+              <span class="tag">Sciences sociales
+                  <span class="tooltip-text">Analyses sociologiques appliquées aux phénomènes culturels et numériques.</span>
+              </span>
+              <span class="tag">Politique des sciences
+                  <span class="tooltip-text">Histoire des sciences et technologies en société : étude des controverses socio-techniques, de l'expertise et de la construction des faits scientifiques.</span>
+              </span>
+              <span class="tag">Debating in English
+                  <span class="tooltip-text">Pratique de la rhétorique et de l'argumentation orale en langue anglaise sur des sujets d'actualité.</span>
+              </span>
+              <span class="tag">Littérature et théâtre
+                  <span class="tooltip-text">Approche croisée de la création et de la lecture, accompagnée d'un parcours de spectateur (Théâtre de l'Odéon, La Colline).</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="projects-section">
+          <h4>Projets réalisés</h4>
+          <span class="project-tag p-color-4">Article de maths</span>
+          <span class="project-tag p-color-1">Fiabilité des LLMs</span>
+          <span class="project-tag p-color-2">Musée Minecraft</span>
+          <span class="project-tag p-color-3">Article représentation données</span>
+        </div>
+      </div>
+
+      <div class="semester-card">
+        <h3 class="semester-title">Semestre 3</h3>
+        <div class="domain-grid">
+          <div class="domain-column">
+            <h4>Sciences</h4>
+            <div class="tags-container">
+              <span class="tag">Mathématiques
+                  <span class="tooltip-text">Consolidations en analyse et algèbre, préparation aux outils mathématiques pour la science des données.</span>
+              </span>
+              <span class="tag">Prog. et Stats
+                  <span class="tooltip-text">Approfondissement en statistiques (tests, modèles linéaires) et programmation pour l'analyse de données culturelles.</span>
+              </span>
+              <span class="tag">Algorithmique
+                  <span class="tooltip-text">Structures de données fondamentales et complexité algorithmique.</span>
+              </span>
+              <span class="tag">Mentorat Data Science
+                  <span class="tooltip-text">Transmission des savoirs : accompagnement des étudiants de L1 sur leurs projets de statistiques et programmation.</span>
+              </span>
+              <span class="tag">Linguistique pour SD
+                  <span class="tooltip-text">Introduction à la phonétique, morphologie et typologie linguistique à travers l'usage de bases de données (Glottolog, WALS).</span>
+              </span>
+            </div>
+          </div>
+          <div class="domain-column">
+            <h4>Humanités</h4>
+            <div class="tags-container">
+              <span class="tag">Histoire des sciences
+                  <span class="tooltip-text">Réflexion critique sur la place des sciences dans les sociétés passées et contemporaines.</span>
+              </span>
+              <span class="tag">Sciences cognitives
+                  <span class="tooltip-text">Comprendre comment la cognition humaine façonne les pratiques culturelles (fictions, mythes, arts) via la psychologie évolutive.</span>
+              </span>
+              <span class="tag">International News
+                  <span class="tooltip-text">Analyse de l'actualité internationale et des médias anglophones.</span>
+              </span>
+              <span class="tag">Histoire de l'art XIX-XX
+                  <span class="tooltip-text">Histoire globale de l'art : décloisonnement des objets culturels et étude des circulations artistiques mondiales.</span>
+              </span>
+              <span class="tag">Littérature et théâtre
+                  <span class="tooltip-text">Étude d'œuvres majeures (ex: Mille et une nuits) et analyse dramaturgique.</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="projects-section">
+            <h4>Projets réalisés</h4>
+            <span class="project-tag p-color-1">Prediction en SD</span>
+            <span class="project-tag p-color-2">Linguistique</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="year-block">
+      <div class="year-dot"></div>
+      <h2 class="year-title">L1 CPES DAC</h2>
+
+      <div class="semester-card">
+        <h3 class="semester-title">Semestres 1 & 2</h3>
+        <div class="domain-grid">
+          <div class="domain-column">
+            <h4>Sciences</h4>
+            <div class="tags-container">
+              <span class="tag">Analyse
+                  <span class="tooltip-text">Étude des suites et des fonctions à valeurs réelles, limites et continuité.</span>
+              </span>
+              <span class="tag">Algèbre
+                  <span class="tooltip-text">Calculs algébriques, ensembles, applications et dénombrement.</span>
+              </span>
+              <span class="tag">Algorithmique
+                  <span class="tooltip-text">Bases de la logique algorithmique et introduction au code.</span>
+              </span>
+              <span class="tag">Science des données
+                  <span class="tooltip-text">Collecte, nettoyage et visualisation de données culturelles. Introduction aux tests statistiques et à la p-value.</span>
+              </span>
+            </div>
+          </div>
+          <div class="domain-column">
+            <h4>Humanités</h4>
+            <div class="tags-container">
+              <span class="tag">Anglais
+                  <span class="tooltip-text">Cultures contemporaines : étude du genre épique (de l'Odyssée à Star Wars) et du romantisme moderne.</span>
+              </span>
+              <span class="tag">Histoire
+                  <span class="tooltip-text">Introduction à l'histoire mondiale : empires, esclavage et histoire de la cartographie.</span>
+              </span>
+              <span class="tag">Littérature
+                  <span class="tooltip-text">Traversées des mondes littéraires : représentations féminines ('Au couvent !') et explorations nordiques.</span>
+              </span>
+              <span class="tag">Histoire de l'art
+                  <span class="tooltip-text">Introduction aux grands courants artistiques et analyse d'œuvres.</span>
+              </span>
+              <span class="tag">Pratique de l'écrit
+                  <span class="tooltip-text">Atelier visant à développer les compétences rédactionnelles académiques et créatives.</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="projects-section">
+            <h4>Projet réalisé</h4>
+            <span class="project-tag p-color-3">Scraping</span>
+        </div>
+      </div>
+    </div>
+  </div> </body>
+</html>

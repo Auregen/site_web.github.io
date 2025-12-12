@@ -1,0 +1,352 @@
+@font-face {
+    font-family: "myFont";
+    src: url("SF-Pro-Rounded-Medium.otf");
+}
+
+@font-face {
+    font-family: "Medium";
+    src: url("SFPRODISPLAYMEDIUM.OTF");
+}
+
+:root {
+    --primary-bg: #F0EEE6;       /* Fond clair */
+    --card-bg: #E3DACC;          /* Fond des cartes (tonalité dropdown) */
+    --tag-bg: #CEC6B9;           /* Fond des cours (gris beige) */
+    --text-primary: #000000;
+    --text-secondary: #6d675e;
+    --accent-blue: #3592B1;      /* Couleur identitaire du Parcours */
+    
+    /* Couleurs des projets (dérivées de ton style_section) */
+    --proj-1: #B585B8;
+    --proj-2: #8BBD8F;
+    --proj-3: #B68E87;
+    --proj-4: #868AB8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--primary-bg);
+    font-family: "Medium", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* --- Navigation (Identique à tes autres pages) --- */
+nav ul {
+    display: flex;
+    font-weight: 500;
+    justify-content: flex-end;
+    gap: clamp(1rem, 4vw, 4rem);
+    padding: 1rem 5%;
+    font-size: clamp(1.1rem, 1.5vw, 1.8rem);
+    list-style-type: none;
+    margin: 1.2rem 10rem;
+}
+
+.lien_nav {
+    text-decoration: none;
+    color: inherit;
+    padding: 0.2rem 1rem;
+    position: relative;
+    white-space: nowrap;
+}
+
+nav .lien_nav:hover::after { transform: scale(1); }
+
+nav .lien_nav::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: #000;
+    transition: transform 0.2s ease-in-out;
+    transform: scale(0);
+    bottom: 0;
+    left: 0;
+}
+
+/* Dropdown */
+nav li { position: relative; }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: max-content;
+    background: var(--card-bg);
+    border-radius: 8px;
+    list-style-type: none;
+    padding: 0.5rem;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-100%);
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.dropdown-content li a {
+    display: block;
+    font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+    text-decoration: none;
+    color: inherit;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.dropdown-content li a:hover { background: var(--tag-bg); }
+.dropdown:hover .dropdown-content { display: block; }
+
+/* --- Header Page --- */
+h1.parcours-title {
+    display: grid;
+    justify-content: center;
+    margin-top: clamp(2rem, 6vw, 4rem);
+    margin-bottom: 3rem;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-family: "myFont", sans-serif;
+    color: var(--accent-blue);
+    text-align: center;
+}
+
+/* --- Timeline Container --- */
+.timeline {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px 4rem 20px;
+    position: relative;
+}
+
+/* La ligne verticale */
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 40px; /* Position de la ligne sur mobile/tablette */
+    width: 4px;
+    background: var(--accent-blue);
+    border-radius: 2px;
+    opacity: 0.3;
+}
+
+/* --- Bloc Année (L3, L2...) --- */
+.year-block {
+    position: relative;
+    margin-bottom: 4rem;
+}
+
+/* Le point sur la timeline */
+.year-dot {
+    position: absolute;
+    left: 29px; /* Ajusté pour centrer sur la ligne de 40px (40px de left + 2px de demi-width - 13px de demi-dot) */
+    top: 0;
+    width: 26px;
+    height: 26px;
+    background: var(--accent-blue);
+    border: 4px solid var(--primary-bg);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+/* Titre de l'année (L3 CPES...) */
+.year-title {
+    margin-left: 80px;
+    font-family: "myFont", sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+/* --- Carte Semestre --- */
+.semester-card {
+    background: var(--card-bg);
+    margin-left: 80px; /* Aligné avec le titre */
+    margin-bottom: 2rem;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    position: relative;
+}
+
+.semester-title {
+    font-family: "myFont", sans-serif;
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(0,0,0,0.05);
+    padding-bottom: 0.5rem;
+}
+
+/* Grille pour Sciences / Humanités */
+.domain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.domain-column h4 {
+    font-family: "myFont", sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* --- Les Tags (Cours) --- */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.tag {
+    background: var(--tag-bg); /* Couleur unie sobre */
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: transform 0.2s ease, background 0.2s;
+    cursor: default;
+}
+
+.tag:hover {
+    transform: translateY(-2px);
+    background: #c2bbb0;
+}
+
+/* --- Les Projets (Section Spéciale) --- */
+.projects-section {
+    margin-top: 2rem;
+    background: rgba(255,255,255,0.3); /* Légère distinction */
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.projects-section h4 {
+    font-family: "myFont", sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.project-tag {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem 0.5rem 0;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    transition: transform 0.2s;
+}
+
+.project-tag:hover { transform: scale(1.05); }
+
+/* Couleurs aléatoires pour les projets (cycle) */
+.p-color-1 { background-color: var(--proj-1); color: white; }
+.p-color-2 { background-color: var(--proj-2); color: white; }
+.p-color-3 { background-color: var(--proj-3); color: white; }
+.p-color-4 { background-color: var(--proj-4); color: white; }
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    /* Menu mobile simplifié */
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin: 1rem;
+    }
+    
+    .timeline::before { left: 20px; }
+    .year-dot { left: 9px; }
+    
+    .year-title { margin-left: 50px; font-size: 1.8rem; }
+    .semester-card { margin-left: 0; margin-top: 1rem; padding: 1.5rem; }
+    
+    /* Sur mobile, on empile Sciences et Humanités */
+    .domain-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    /* Pour que la timeline ne coupe pas les cartes sur mobile, on la cache ou on décale tout */
+    .timeline { padding-left: 10px; padding-right: 10px; }
+    .timeline::before { display: none; } /* On retire la ligne sur mobile pour plus de place */
+    .year-dot { display: none; }
+    .year-title { margin-left: 0; text-align: center; }
+}
+
+
+/* --- Tooltips pour les descriptions de cours --- */
+.tag {
+    position: relative; /* Nécessaire pour positionner l'infobulle */
+    cursor: help; /* Indique qu'il y a une info au survol */
+}
+
+/* Le texte caché par défaut */
+.tag .tooltip-text {
+    visibility: hidden;
+    width: 280px;
+    background-color: #4a4a4a; /* Gris foncé pour le contraste */
+    color: #fff;
+    text-align: left; /* Texte aligné à gauche pour la lisibilité */
+    border-radius: 8px;
+    padding: 12px;
+    
+    /* Positionnement au-dessus du tag */
+    position: absolute;
+    z-index: 100;
+    bottom: 135%; 
+    left: 50%;
+    transform: translateX(-50%); /* Centrage parfait */
+    
+    /* Animation */
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    
+    /* Typographie de la description */
+    font-family: "Medium", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    line-height: 1.4;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    pointer-events: none; /* Évite les bugs si la souris glisse dessus */
+}
+
+/* La petite flèche en bas de la bulle */
+.tag .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #4a4a4a transparent transparent transparent;
+}
+
+/* Apparition au survol */
+.tag:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(5px); /* Petit effet de descente */
+}
+
+/* Adaptation Mobile : On cache les tooltips ou on les réduit */
+@media (max-width: 768px) {
+    .tag .tooltip-text {
+        width: 200px;
+        font-size: 0.75rem;
+    }
+}
