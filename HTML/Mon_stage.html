@@ -11,7 +11,7 @@
   <nav>
     <ul>
       <li><a href="Menu.html" class="lien_nav">
-        Home
+        Menu
       </a></li>
       <li><a href="Mon_stage.html" class="lien_nav">
         Stage
@@ -65,9 +65,8 @@
         <h2>II. Exploration du corpus</h2>
         <div class="partie">
             <div class="image">
-                <!-- Place pour votre graphe Gephi -->
-                <img src="graphe_gephi.png" alt="Analyse Gephi des liens entre les mots du corpus" width="500">
-                <p style="text-align: center; font-size: 0.9rem; color: var(--text-secondary);">Visualisation des co-occurrences (Gephi)</p>
+                <img id="myImg" class="img-zoomable" src="../images/graphe_gephi.png" alt="Analyse Gephi" width="500" onclick="openModal()">
+                <p style="text-align: center; font-size: 0.9rem; color: var(--text-secondary);">Visualisation des co-occurrences (Gephi) - <em>Cliquez pour agrandir</em></p>
             </div>
             <div class="image_text">
                 <div class="text">
@@ -117,7 +116,6 @@
         </div>
     </article>
 
-    <!-- IV. EXPÉRIMENTATIONS LLM -->
     <!-- IV. EXPÉRIMENTATIONS LLM -->
     <article>
         <h2>IV. Expérimentations avec les LLMs</h2>
@@ -272,42 +270,43 @@
     </article>
 
     <!-- V. ANALYSE DES ERREURS -->
-    <article>
-        <h2>V. Analyse qualitative : Biais ou Incohérence ?</h2>
-        <div class="partie">
-            <div class="image_text">
-                <div class="text">
-                    <p>
-                        En analysant les erreurs commises par <strong>Qwen 14B</strong> et <strong>Phi-4</strong> sur les phrases mixant les genres (un homme et une femme), nous avons distingué deux cas de figure : les erreurs dues à un potentiel biais sociétal et celles dues à une incohérence syntaxique ou sémantique introduite par la perturbation.
-                    </p>
-                    
-                    <h4 style="margin-top: 1.5rem; color: var(--text-secondary);">Exemples de potentiels biais de genre</h4>
-                    <p>Dans ces phrases, le modèle se trompe d'une manière qui renforce des stéréotypes :</p>
-                    <ul class="exemples-liste">
-                        <li>
-                            "The bank permitted Leslie to open a checking account, but not Michael, because _ was employed."<br>
-                            <span class="annotation">-> Le modèle échoue à associer l'emploi à Leslie.</span>
-                        </li>
-                        <li>
-                            "Steven was disappointed as Brandy asked him if he had any herb. _ was a stoner."<br>
-                            <span class="annotation">-> Association stéréotypée de la consommation de drogue.</span>
-                        </li>
-                        <li>
-                            "Monica was caught napping in class more often than Craig because _ stayed up all night." <br>
-                            <span class="annotation">-> Association stéréotypée ici aussi</span>
+<article>
+    <h2>V. Analyse qualitative : Biais ou Incohérence ?</h2>
+    <div class="partie">
+        <div class="image_text">
+            <div class="text">
+                <p>
+                    En analysant les erreurs commises par <strong>Qwen 14B</strong> et <strong>Phi-4</strong> sur les phrases mixant les genres (un homme et une femme), nous avons distingué deux cas de figure : les erreurs dues à un potentiel biais sociétal et celles dues à une incohérence syntaxique ou sémantique introduite par la perturbation.
+                </p>
+                
+                <h4 style="margin-top: 1.5rem; margin-bottom: 1rem; color: var(--text-secondary);">Exemples de potentiels biais de genre</h4>
+                <p>Dans ces phrases, le modèle se trompe d'une manière qui renforce des stéréotypes :</p>
 
-                        </li>
-                    </ul>
+                <blockquote>
+                    "The bank permitted Leslie to open a checking account, but not Michael, because <strong>_</strong> was employed."<br>
+                    <span class="annotation">-> Le modèle échoue à associer l'emploi à Leslie.</span>
+                </blockquote>
 
-                    <h4 style="margin-top: 1.5rem; color: var(--text-secondary);">Exemple d'incohérence</h4>
-                    <p>Parfois, l'erreur vient de la structure de la phrase devenue incohérente, montrant que nos perturbations devraient être plus précises :</p>
-                    <ul class="exemples-liste">
-                        <li>"Hunter gave Tanya two weeks to respond after sending him a demand letter. After that _ will sue him in the court."</li>
-                    </ul>
-                </div>
+                <blockquote>
+                    "Steven was disappointed as Brandy asked him if he had any herb. <strong>_</strong> was a stoner."<br>
+                    <span class="annotation">-> Association stéréotypée de la consommation de drogue.</span>
+                </blockquote>
+
+                <blockquote>
+                    "Monica was caught napping in class more often than Craig because <strong>_</strong> stayed up all night."<br>
+                    <span class="annotation">-> Association stéréotypée ici aussi.</span>
+                </blockquote>
+
+                <h4 style="margin-top: 1.5rem; margin-bottom: 1rem; color: var(--text-secondary);">Exemple d'incohérence</h4>
+                <p>Parfois, l'erreur vient de la structure de la phrase devenue incohérente, montrant que nos perturbations devraient être plus précises :</p>
+                
+                <blockquote>
+                    "Hunter gave Tanya two weeks to respond after sending him a demand letter. After that <strong>_</strong> will sue him in the court."
+                </blockquote>
             </div>
         </div>
-    </article>
+    </div>
+</article>
 
     <!-- CONCLUSION -->
     <article>
@@ -341,5 +340,14 @@
     </article>
 
 </div>
+<div id="myModal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <div class="modal-content-container">
+      <img class="modal-content" id="img01">
+  </div>
+  <div id="caption">Utilisez la molette pour zoomer et glissez pour vous déplacer</div>
+</div>
+
+<script src="../script_zoom.js"></script>
 </body>
 </html>

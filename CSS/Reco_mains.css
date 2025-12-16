@@ -1,6 +1,6 @@
 @font-face {
     font-family: "myFont";
-    src: url("../polices/SF-Pro-Rounded-Medium.otf");
+    src: url("../polices/Helvetica-Bold.ttf");
 }
 
 @font-face {
@@ -266,12 +266,37 @@ button:disabled {
 #image-container {
     position: relative;
     width: 100%;
-    height: clamp(300px, 65vh, 600px);
+    /* Remplacer height clamp par min-height et height auto */
+    min-height: 400px; 
+    height: auto; 
     background: var(--panel-bg);
     border-radius: clamp(1.5rem, 4vw, 2rem);
-    overflow: hidden;
+    overflow: hidden; /* Garde les images dans les coins arrondis */
     padding: clamp(1rem, 2.5vw, 1.25rem);
     margin-bottom: clamp(1rem, 3vw, 1.5rem);
+    
+    /* Flexbox pour centrer le bouton Load au milieu */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Transition fluide si la hauteur change */
+    transition: height 0.5s ease;
+}
+
+/* Style spécifique pour le gros bouton central */
+.big-start-btn {
+    font-size: 1.5rem;
+    padding: 1rem 3rem;
+    z-index: 10; /* S'assure qu'il est au dessus */
+    background-color: var(--text-secondary);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.big-start-btn:hover {
+    background-color: #2a7a94;
+    transform: scale(1.05);
 }
 
 .image-item {

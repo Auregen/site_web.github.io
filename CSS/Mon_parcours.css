@@ -1,6 +1,6 @@
 @font-face {
     font-family: "myFont";
-    src: url("../polices/SF-Pro-Rounded-Medium.otf");
+    src: url("../polices/Helvetica-Bold.ttf");
 }
 
 @font-face {
@@ -147,8 +147,8 @@ h1.parcours-title {
     position: absolute;
     left: 29px; /* Ajusté pour centrer sur la ligne de 40px (40px de left + 2px de demi-width - 13px de demi-dot) */
     top: 0;
-    width: 26px;
-    height: 26px;
+    width: 20px;
+    height: 20px;
     background: var(--accent-blue);
     border: 4px solid var(--primary-bg);
     border-radius: 50%;
@@ -159,7 +159,7 @@ h1.parcours-title {
 .year-title {
     margin-left: 80px;
     font-family: "myFont", sans-serif;
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-size: clamp(1rem, 2vw, 1.8rem);
     color: var(--text-primary);
     margin-bottom: 1.5rem;
     line-height: 1.2;

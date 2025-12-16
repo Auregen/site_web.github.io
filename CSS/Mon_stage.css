@@ -1,6 +1,6 @@
 @font-face {
     font-family: "myFont";
-    src: url("../polices/SF-Pro-Rounded-Medium.otf");
+    src: url("../polices/Helvetica-Bold.ttf");
 }
 
 @font-face {
@@ -149,6 +149,9 @@ h3.sous-titre {
     max-width: min(90%, 1000px);
     margin-left: auto;
     margin-right: auto;
+    max-width: min(95%, 1000px); /* Déjà à 1000px, on garde */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h2 {
@@ -170,9 +173,9 @@ h2 {
     justify-content: center;
     align-items: flex-start;
     gap: clamp(2rem, 5vw, 4rem);
+    max-width: min(95%, 1000px); 
+    padding: 0; /* On retire le padding qui peut décaler */
     margin: clamp(1rem, 4vw, 3rem) auto;
-    max-width: min(95%, 1400px);
-    padding: 0.5rem 2%;
 }
 
 .text {
@@ -199,10 +202,12 @@ h2 {
 }
 
 .image_text {
-    max-width: min(95%, 900px);
-    margin: 0 auto;
+    width: 100%;
+    max-width: 100%; 
+    margin: 0;
     padding: 0;
 }
+
 
 /* L'étoile flottante */
 .mini {
@@ -358,5 +363,106 @@ tbody tr:last-child td {
     
     h1.stage {
         font-size: 2.5rem;
+    }
+}
+
+/* --- Styles pour la Lightbox (Zoom Image) --- */
+
+/* L'image originale devient un pointeur */
+.img-zoomable {
+    cursor: zoom-in;
+    transition: 0.3s;
+}
+
+.img-zoomable:hover {
+    opacity: 0.9;
+}
+
+/* La fenêtre modale (fond noir) */
+.modal {
+    display: none; /* Caché par défaut */
+    position: fixed; 
+    z-index: 9999; /* Au-dessus de tout */
+    padding-top: 50px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: hidden; /* Empêche le scroll de la page derrière */
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.9); 
+}
+
+/* Conteneur pour centrer l'image */
+.modal-content-container {
+    width: 100%;
+    height: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Important pour le zoom */
+}
+
+/* L'image dans la modale */
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    transition: transform 0.1s ease-out; /* Fluidité du zoom */
+    cursor: grab;
+}
+
+.modal-content:active {
+    cursor: grabbing;
+}
+
+/* Légende */
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 50px;
+    font-family: sans-serif;
+}
+
+/* Bouton de fermeture (X) */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    z-index: 10000;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Animation d'ouverture */
+.modal-content, #caption {  
+    animation-name: zoom;
+    animation-duration: 0.3s;
+}
+
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+
+/* Media Query pour mobile */
+@media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
     }
 }

@@ -10,12 +10,30 @@ const statusText = document.getElementById('statusText');
 const classCountInput = document.getElementById('classCount');
 const imagesPerClassInput = document.getElementById('imagesPerClass');
 const imageSizeInput = document.getElementById('imageSize');
+const resetBtn = document.getElementById('resetBtn');
 
 // Couleurs inspirées de votre site
 const clusterColors = [
     '#B585B8', '#8BBD8F', '#B68E87', '#868AB8', '#84B8B7',
     '#CD6D4E', '#3592B1', '#8F877B', '#DDA0DD', '#98D8C8'
 ];
+
+
+function adjustContainerHeight() {
+    const imgSize = parseInt(imageSizeInput.value);
+    const totalImages = currentImagesData.length;
+    
+    // Calcul de l'aire nécessaire (taille image + marge) * nombre d'images * facteur d'espacement
+    // Le facteur 3.0 permet d'avoir de l'espace pour que ça respire en mode aléatoire
+    const areaPerImage = (imgSize + 20) * (imgSize + 20);
+    const requiredArea = totalImages * areaPerImage * 3.0;
+    
+    const containerWidth = imageContainer.clientWidth;
+    // La hauteur est l'aire divisée par la largeur, avec un minimum de 400px
+    const calculatedHeight = Math.max(400, requiredArea / containerWidth);
+    
+    imageContainer.style.height = `${calculatedHeight}px`;
+}
 
 // Étape 1: Charger le fichier CSV
 async function loadAllCSV() {
@@ -81,31 +99,43 @@ function selectSubsetImages() {
 // Étape 3: Créer et afficher les images
 function createImages() {
     statusText.textContent = 'Création des images...';
+    loadBtn.style.display = 'none';
     imageContainer.innerHTML = '';
     
     const imageSize = parseInt(imageSizeInput.value);
     
+const existingImages = document.querySelectorAll('.image-item, .cluster-label');
+    existingImages.forEach(el => el.remove());
+    
+    // Ajuster la hauteur AVANT de créer les images pour que randomizeLayout ait les bonnes limites
+    adjustContainerHeight();    
     currentImagesData.forEach((data, index) => {
         const img = document.createElement('img');
         img.className = 'image-item';
-        img.src = `https://media.githubusercontent.com/media/Auregen/data-images/main/mains_raw/${data.imageName}`;        img.alt = data.imageName;
+        // ... (Source de l'image inchangée) ...
+        img.src = `https://media.githubusercontent.com/media/Auregen/data-images/main/mains_raw/${data.imageName}`;
+        img.alt = data.imageName;
         img.dataset.category = data.category;
         img.dataset.index = index;
         img.style.width = `${imageSize}px`;
         img.style.height = `${imageSize}px`;
         
-        // Gestion des erreurs de chargement d'image
+        // Position initiale au centre (optionnel, pour l'effet d'explosion)
+        img.style.left = '50%';
+        img.style.top = '50%';
+        img.style.transform = 'translate(-50%, -50%) scale(0)';
+        
         img.onerror = function() {
             this.style.display = 'none';
-            console.warn(`Image non trouvée: ${data.imageName}`);
         };
         
         imageContainer.appendChild(img);
     });
     
-    statusText.textContent = `${currentImagesData.length} images créées - Prêt pour la disposition aléatoire`;
+    statusText.textContent = `${currentImagesData.length} images créées`;
     randomizeBtn.disabled = false;
     clusterBtn.disabled = false;
+    resetBtn.disabled = false; // Activer le reset
 }
 
 // Étape 4: Disposition aléatoire
