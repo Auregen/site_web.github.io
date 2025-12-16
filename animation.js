@@ -39,7 +39,7 @@ function adjustContainerHeight() {
 async function loadAllCSV() {
     try {
         statusText.textContent = 'Chargement du CSV complet...';
-        const response = await fetch('dataset.csv');
+        const response = await fetch('../dataset.csv');
         const csvText = await response.text();
         
         // Parser le CSV
