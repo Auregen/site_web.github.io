@@ -1,4 +1,3 @@
-
 // Variables globales
 let allImagesData = [];
 let currentImagesData = [];
@@ -6,49 +5,36 @@ const imageContainer = document.getElementById('image-container');
 const loadBtn = document.getElementById('loadBtn');
 const randomizeBtn = document.getElementById('randomizeBtn');
 const clusterBtn = document.getElementById('clusterBtn');
+const resetBtn = document.getElementById('resetBtn'); // Nouveau bouton
 const statusText = document.getElementById('statusText');
 const classCountInput = document.getElementById('classCount');
 const imagesPerClassInput = document.getElementById('imagesPerClass');
 const imageSizeInput = document.getElementById('imageSize');
-const resetBtn = document.getElementById('resetBtn');
 
-// Couleurs inspirées de votre site
+// Couleurs
 const clusterColors = [
     '#B585B8', '#8BBD8F', '#B68E87', '#868AB8', '#84B8B7',
     '#CD6D4E', '#3592B1', '#8F877B', '#DDA0DD', '#98D8C8'
 ];
 
-
-function adjustContainerHeight() {
-    const imgSize = parseInt(imageSizeInput.value);
-    const totalImages = currentImagesData.length;
-    
-    // Calcul de l'aire nécessaire (taille image + marge) * nombre d'images * facteur d'espacement
-    // Le facteur 3.0 permet d'avoir de l'espace pour que ça respire en mode aléatoire
-    const areaPerImage = (imgSize + 20) * (imgSize + 20);
-    const requiredArea = totalImages * areaPerImage * 3.0;
-    
-    const containerWidth = imageContainer.clientWidth;
-    // La hauteur est l'aire divisée par la largeur, avec un minimum de 400px
-    const calculatedHeight = Math.max(400, requiredArea / containerWidth);
-    
-    imageContainer.style.height = `${calculatedHeight}px`;
-}
-
-// Étape 1: Charger le fichier CSV
+// Étape 1: Charger le fichier CSV (CHEMIN CORRIGÉ)
 async function loadAllCSV() {
     try {
-        statusText.textContent = 'Chargement du CSV complet...';
-        const response = await fetch('../dataset.csv');
-        const csvText = await response.text();
+        statusText.textContent = 'Chargement du CSV...';
         
-        // Parser le CSV
+        // CORRECTION ICI : "../dataset.csv" car le HTML est dans un sous-dossier
+        const response = await fetch('../dataset.csv');
+        
+        if (!response.ok) throw new Error("Fichier dataset.csv introuvable");
+
+        const csvText = await response.text();
         const lines = csvText.split('\n');
         allImagesData = [];
 
         for (let i = 1; i < lines.length; i++) {
             const line = lines[i].trim();
-            if (line) {
+            // Petite sécurité pour ignorer les lignes vides ou corrompues
+            if (line && line.length < 200 && !line.includes('DOCTYPE')) {
                 const values = line.split(',');
                 if (values.length >= 2) {
                     allImagesData.push({
@@ -59,24 +45,38 @@ async function loadAllCSV() {
             }
         }
         
-        statusText.textContent = `CSV chargé: ${allImagesData.length} images disponibles`;
+        statusText.textContent = `Données chargées (${allImagesData.length} images)`;
         return true;
     } catch (error) {
-        console.error('Erreur lors du chargement du CSV:', error);
-        statusText.textContent = 'Erreur lors du chargement du CSV';
+        console.error('Erreur:', error);
+        statusText.textContent = 'Erreur: Impossible de trouver ../dataset.csv';
         return false;
     }
 }
 
-// Étape 2: Sélectionner un sous-ensemble d'images
+// Fonction pour calculer la hauteur nécessaire du conteneur
+function adjustContainerHeight() {
+    const imgSize = parseInt(imageSizeInput.value);
+    const totalImages = currentImagesData.length;
+    
+    // Calcul de l'espace requis (taille image + marge)
+    // On multiplie par 3 pour laisser de l'espace vide pour l'effet aléatoire
+    const areaPerImage = (imgSize + 20) * (imgSize + 20);
+    const requiredArea = totalImages * areaPerImage * 3.0;
+    
+    const containerWidth = imageContainer.clientWidth;
+    // Hauteur min de 400px
+    const calculatedHeight = Math.max(400, requiredArea / containerWidth);
+    
+    imageContainer.style.height = `${calculatedHeight}px`;
+}
+
+// Étape 2: Sélectionner un sous-ensemble (Identique)
 function selectSubsetImages() {
     const classCount = parseInt(classCountInput.value);
     const imagesPerClass = parseInt(imagesPerClassInput.value);
     
-    // Obtenir toutes les catégories disponibles
     const allCategories = [...new Set(allImagesData.map(data => data.category))];
-    
-    // Sélectionner aléatoirement N catégories
     const selectedCategories = [];
     const shuffledCategories = [...allCategories].sort(() => 0.5 - Math.random());
     
@@ -84,7 +84,6 @@ function selectSubsetImages() {
         selectedCategories.push(shuffledCategories[i]);
     }
     
-    // Pour chaque catégorie sélectionnée, prendre M images aléatoires
     currentImagesData = [];
     selectedCategories.forEach(category => {
         const categoryImages = allImagesData.filter(data => data.category === category);
@@ -96,23 +95,23 @@ function selectSubsetImages() {
     return currentImagesData.length;
 }
 
-// Étape 3: Créer et afficher les images
+// Étape 3: Créer les images
 function createImages() {
-    statusText.textContent = 'Création des images...';
+    // 1. Cacher le bouton Load
     loadBtn.style.display = 'none';
-    imageContainer.innerHTML = '';
     
+    // 2. Nettoyer les anciennes images (sauf le bouton load qui est caché)
+    document.querySelectorAll('.image-item, .cluster-label').forEach(el => el.remove());
+    
+    // 3. Ajuster la hauteur AVANT de créer les images
+    adjustContainerHeight();
+
     const imageSize = parseInt(imageSizeInput.value);
     
-const existingImages = document.querySelectorAll('.image-item, .cluster-label');
-    existingImages.forEach(el => el.remove());
-    
-    // Ajuster la hauteur AVANT de créer les images pour que randomizeLayout ait les bonnes limites
-    adjustContainerHeight();    
     currentImagesData.forEach((data, index) => {
         const img = document.createElement('img');
         img.className = 'image-item';
-        // ... (Source de l'image inchangée) ...
+        // URL absolue vers GitHub pour les images (ça ne change pas)
         img.src = `https://media.githubusercontent.com/media/Auregen/data-images/main/mains_raw/${data.imageName}`;
         img.alt = data.imageName;
         img.dataset.category = data.category;
@@ -120,55 +119,66 @@ const existingImages = document.querySelectorAll('.image-item, .cluster-label');
         img.style.width = `${imageSize}px`;
         img.style.height = `${imageSize}px`;
         
-        // Position initiale au centre (optionnel, pour l'effet d'explosion)
+        // Position initiale centrée pour effet d'explosion
         img.style.left = '50%';
         img.style.top = '50%';
         img.style.transform = 'translate(-50%, -50%) scale(0)';
         
-        img.onerror = function() {
-            this.style.display = 'none';
-        };
-        
+        img.onerror = function() { this.style.display = 'none'; };
         imageContainer.appendChild(img);
     });
     
-    statusText.textContent = `${currentImagesData.length} images créées`;
+    statusText.textContent = `${currentImagesData.length} images générées`;
     randomizeBtn.disabled = false;
     clusterBtn.disabled = false;
-    resetBtn.disabled = false; // Activer le reset
+    resetBtn.disabled = false; // Activer le Reset
 }
 
 // Étape 4: Disposition aléatoire
 function randomizeLayout() {
-    statusText.textContent = 'Disposition aléatoire...';
-    
     const containerRect = imageContainer.getBoundingClientRect();
     const images = document.querySelectorAll('.image-item');
     const imageSize = parseInt(imageSizeInput.value);
     
-    images.forEach(img => {
-        // Position aléatoire dans le conteneur
-        const maxX = containerRect.width - imageSize - 40;
-        const maxY = containerRect.height - imageSize - 40;
+    images.forEach((img, i) => {
+        const maxX = containerRect.width - imageSize - 20;
+        const maxY = containerRect.height - imageSize - 20;
         
-        const randomX = 20 + Math.random() * maxX;
-        const randomY = 20 + Math.random() * maxY;
+        const randomX = 10 + Math.random() * maxX;
+        const randomY = 10 + Math.random() * maxY;
         
-        img.style.left = `${randomX}px`;
-        img.style.top = `${randomY}px`;
-        img.style.transform = 'scale(1)';
+        setTimeout(() => {
+            img.style.left = `${randomX}px`;
+            img.style.top = `${randomY}px`;
+            img.style.transform = 'scale(1)';
+        }, i * 5);
     });
-    
-    statusText.textContent = 'Disposition aléatoire terminée';
 }
 
-// Étape 5: Calculer les positions des clusters
+// Nouvelle fonction Reset
+function resetApplication() {
+    // Supprimer images et labels
+    document.querySelectorAll('.image-item, .cluster-label').forEach(el => el.remove());
+    
+    // Réafficher le bouton Load
+    loadBtn.style.display = 'block';
+    
+    // Remettre la hauteur normale
+    imageContainer.style.height = 'auto';
+    imageContainer.style.minHeight = '400px';
+    
+    // Désactiver boutons
+    clusterBtn.disabled = true;
+    resetBtn.disabled = true;
+    statusText.textContent = 'Prêt à charger';
+}
+
+// Étape 5 & 6: Clusters (Identique)
 function calculateClusterPositions() {
     const containerRect = imageContainer.getBoundingClientRect();
     const categories = [...new Set(currentImagesData.map(data => data.category))];
     const clusterPositions = {};
     
-    // Disposition en grille pour les clusters
     const cols = Math.ceil(Math.sqrt(categories.length));
     const rows = Math.ceil(categories.length / cols);
     
@@ -178,31 +188,22 @@ function calculateClusterPositions() {
     categories.forEach((category, index) => {
         const row = Math.floor(index / cols);
         const col = index % cols;
-        
         clusterPositions[category] = {
             x: col * clusterWidth + clusterWidth * 0.1,
             y: row * clusterHeight + clusterHeight * 0.1,
-            width: clusterWidth * 0.8,
-            height: clusterHeight * 0.8,
             color: clusterColors[index % clusterColors.length]
         };
     });
-    
     return clusterPositions;
 }
 
-// Étape 6: Animation vers les clusters
 function clusterImages() {
-    statusText.textContent = 'Formation des clusters...';
-    
     const clusterPositions = calculateClusterPositions();
     const images = document.querySelectorAll('.image-item');
     const imageSize = parseInt(imageSizeInput.value);
     
-    // Nettoyer les anciens labels
-    document.querySelectorAll('.cluster-label').forEach(label => label.remove());
+    document.querySelectorAll('.cluster-label').forEach(l => l.remove());
     
-    // Ajouter les labels de clusters
     Object.keys(clusterPositions).forEach(category => {
         const cluster = clusterPositions[category];
         const label = document.createElement('div');
@@ -214,73 +215,57 @@ function clusterImages() {
         imageContainer.appendChild(label);
     });
     
-    // Regrouper les images par catégorie
     const imagesByCategory = {};
     images.forEach(img => {
-        const category = img.dataset.category;
-        if (!imagesByCategory[category]) {
-            imagesByCategory[category] = [];
-        }
-        imagesByCategory[category].push(img);
+        const cat = img.dataset.category;
+        if (!imagesByCategory[cat]) imagesByCategory[cat] = [];
+        imagesByCategory[cat].push(img);
     });
     
-    // Positionner les images dans leurs clusters
     Object.keys(imagesByCategory).forEach(category => {
         const cluster = clusterPositions[category];
-        const categoryImages = imagesByCategory[category];
-        
-        // Disposition en grille à l'intérieur du cluster
-        const imagesPerRow = Math.ceil(Math.sqrt(categoryImages.length));
+        const items = imagesByCategory[category];
+        const itemsPerRow = Math.ceil(Math.sqrt(items.length));
         const spacing = imageSize + 15;
         
-        categoryImages.forEach((img, index) => {
-            const row = Math.floor(index / imagesPerRow);
-            const col = index % imagesPerRow;
-            
+        items.forEach((img, index) => {
+            const row = Math.floor(index / itemsPerRow);
+            const col = index % itemsPerRow;
             const x = cluster.x + 25 + (col * spacing);
-            const y = cluster.y + 25 + (row * spacing);
+            const y = cluster.y + 40 + (row * spacing); // +40 pour laisser place au label
             
-            // Animation vers la nouvelle position
             setTimeout(() => {
                 img.style.left = `${x}px`;
                 img.style.top = `${y}px`;
                 img.style.transform = 'scale(1)';
                 img.style.borderColor = cluster.color;
-            }, index * 30); // Délai progressif pour un effet cascade
+            }, index * 20);
         });
     });
-    
-    statusText.textContent = `Clusters formés: ${Object.keys(imagesByCategory).length} catégories`;
 }
 
-// Étape 7: Initialisation
+// Initialisation
 async function init() {
-    // Charger d'abord tout le CSV
     await loadAllCSV();
     
-    // Événement pour le bouton de chargement
     loadBtn.addEventListener('click', () => {
-        const totalImages = selectSubsetImages();
-        if (totalImages > 0) {
+        const total = selectSubsetImages();
+        if (total > 0) {
             createImages();
-            setTimeout(randomizeLayout, 500);
+            setTimeout(randomizeLayout, 100);
         }
     });
     
-    // Événements des autres boutons
     randomizeBtn.addEventListener('click', randomizeLayout);
     clusterBtn.addEventListener('click', clusterImages);
+    resetBtn.addEventListener('click', resetApplication);
     
-    // Mettre à jour la taille des images quand elle change
     imageSizeInput.addEventListener('change', () => {
-        const images = document.querySelectorAll('.image-item');
-        const newSize = parseInt(imageSizeInput.value);
-        images.forEach(img => {
-            img.style.width = `${newSize}px`;
-            img.style.height = `${newSize}px`;
-        });
+        if (currentImagesData.length > 0) {
+            adjustContainerHeight();
+            randomizeLayout();
+        }
     });
 }
 
-// Démarrer l'application
 init();
