@@ -66,7 +66,7 @@ function adjustContainerHeight() {
     
     const containerWidth = imageContainer.clientWidth;
     // Hauteur min de 400px
-    const calculatedHeight = Math.max(400, requiredArea / containerWidth);
+    const calculatedHeight = Math.max(600, requiredArea / containerWidth);
     
     imageContainer.style.height = `${calculatedHeight}px`;
 }
@@ -165,7 +165,7 @@ function resetApplication() {
     
     // Remettre la hauteur normale
     imageContainer.style.height = 'auto';
-    imageContainer.style.minHeight = '400px';
+    imageContainer.style.minHeight = '600px';
     
     // Désactiver boutons
     clusterBtn.disabled = true;

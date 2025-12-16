@@ -423,7 +423,7 @@ img {
     }
     
     #image-container {
-        height: clamp(250px, 50vh, 400px);
+        height: clamp(250px, 50vh, 600px);
     }
 }
 
