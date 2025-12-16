@@ -214,7 +214,7 @@ h3 {
 }
 
 .control-item input:focus {
-    border-color: var(--accent-blue);
+    border-color: var(--text-secondary);
     outline: none;
 }
 
@@ -289,7 +289,7 @@ button:disabled {
 .big-start-btn {
     font-size: 1.5rem;
     padding: 1rem 3rem;
-    background-color: var(--accent-blue);
+    background-color: var(--text-secondary);
     color: white;
     z-index: 10;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
