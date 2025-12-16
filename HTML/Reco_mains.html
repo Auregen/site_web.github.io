@@ -38,40 +38,40 @@
         <h1>Classifications des mains</h1>
         <H3>Voici une illustration de ce que fait mon modèle de reconnaissance de mains. Plus bas, vous pourrez voir le devlog de ce projet.</h3>
         
-        <div class="controls-panel">
-                    <div class="control-group">
-                        <div class="control-item">
-                            <label for="classCount">Nombre de classes :</label>
-                            <input type="number" id="classCount" min="2" max="10" value="4">
-                            <span>Entre 2 et 10</span>
-                        </div>
-                        <div class="control-item">
-                            <label for="imagesPerClass">Mains par classe :</label>
-                            <input type="number" id="imagesPerClass" min="1" max="10" value="5">
-                            <span>Entre 1 et 10</span>
-                        </div>
-                        <div class="control-item">
-                            <label for="imageSize">Taille des images :</label>
-                            <input type="number" id="imageSize" min="50" max="120" value="70">
-                            <span>Entre 50 et 120px</span>
-                        </div>
-                    </div>
-                    
-                    <div id="action-buttons">
-                        <button id="clusterBtn" disabled>Former les Clusters</button>
-                        <button id="resetBtn" disabled>Réinitialiser</button>
-                    </div>
+<div class="controls-panel">
+            <div class="control-group">
+                <div class="control-item">
+                    <label for="classCount">Nombre de classes :</label>
+                    <input type="number" id="classCount" min="2" max="10" value="4">
+                    <span>Entre 2 et 10</span>
                 </div>
-
-                <div id="image-container">
-                    <button id="loadBtn" class="big-start-btn">Charger les Images</button>
+                <div class="control-item">
+                    <label for="imagesPerClass">Mains par classe :</label>
+                    <input type="number" id="imagesPerClass" min="1" max="10" value="5">
+                    <span>Entre 1 et 10</span>
                 </div>
-                
-                <div id="status">
-                    <span id="statusText">Configurez les paramètres et cliquez sur Charger</span>
+                <div class="control-item">
+                    <label for="imageSize">Taille des images :</label>
+                    <input type="number" id="imageSize" min="50" max="120" value="70">
+                    <span>Entre 50 et 120px</span>
                 </div>
+            </div>
             
-                <button id="randomizeBtn" disabled style="display: none;">Disposition Aléatoire</button>
+            <div id="action-buttons">
+                <button id="clusterBtn" disabled>Former les Clusters</button>
+                <button id="resetBtn" disabled>Réinitialiser</button>
+            </div>
+        </div>
+
+        <div id="image-container">
+            <button id="loadBtn" class="big-start-btn">Charger les Images</button>
+        </div>
+        
+        <div id="status">
+            <span id="statusText">Configurez les paramètres et cliquez sur Charger</span>
+        </div>
+    
+        <button id="randomizeBtn" disabled style="display: none;">Disposition Aléatoire</button>
     <div class="section-resultats">
         <h2>Résultats</h2>
             <table border="1" cellspacing="0" cellpadding="5">

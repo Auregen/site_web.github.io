@@ -263,34 +263,35 @@ button:disabled {
 }
 
 /* Conteneur d'Images Responsive */
+/* ... (Début du fichier identique) ... */
+
+/* Modification du conteneur pour la hauteur dynamique et le centrage */
 #image-container {
     position: relative;
     width: 100%;
-    /* Remplacer height clamp par min-height et height auto */
-    min-height: 400px; 
-    height: auto; 
+    /* On remplace la hauteur fixe par min-height + auto */
+    min-height: 400px;
+    height: auto;
     background: var(--panel-bg);
     border-radius: clamp(1.5rem, 4vw, 2rem);
-    overflow: hidden; /* Garde les images dans les coins arrondis */
-    padding: clamp(1rem, 2.5vw, 1.25rem);
-    margin-bottom: clamp(1rem, 3vw, 1.5rem);
-    
-    /* Flexbox pour centrer le bouton Load au milieu */
+    /* Flexbox pour centrer le gros bouton "Charger" */
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    /* Transition fluide si la hauteur change */
+    /* Pour garder les images dans les coins arrondis */
+    overflow: hidden; 
+    padding: clamp(1rem, 2.5vw, 1.25rem);
+    margin-bottom: clamp(1rem, 3vw, 1.5rem);
     transition: height 0.5s ease;
 }
 
-/* Style spécifique pour le gros bouton central */
+/* Style du gros bouton de démarrage */
 .big-start-btn {
     font-size: 1.5rem;
     padding: 1rem 3rem;
-    z-index: 10; /* S'assure qu'il est au dessus */
-    background-color: var(--text-secondary);
+    background-color: var(--accent-blue);
     color: white;
+    z-index: 10;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
@@ -298,6 +299,8 @@ button:disabled {
     background-color: #2a7a94;
     transform: scale(1.05);
 }
+
+/* ... (Reste du fichier identique) ... */
 
 .image-item {
     position: absolute;
