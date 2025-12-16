@@ -1,11 +1,11 @@
 @font-face {
     font-family: "myFont";
-    src: url("SF-Pro-Rounded-Medium.otf");
+    src: url("../polices/SF-Pro-Rounded-Medium.otf");
 }
 
 @font-face {
     font-family: "Medium";
-    src: url("SFPRODISPLAYMEDIUM.OTF");
+    src: url("../polices/SFPRODISPLAYMEDIUM.OTF");
 }
 
 
