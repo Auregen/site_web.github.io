@@ -14,13 +14,11 @@
     --tag-bg: #CEC6B9;           /* Fond des cours (gris beige) */
     --text-primary: #000000;
     --text-secondary: #6d675e;
-    --accent-blue: #3592B1;      /* Couleur identitaire du Parcours */
+    --accent-blue: #3592B1; 
+    --accent-orange: #CD6D4E;     
     
-    /* Couleurs des projets (dérivées de ton style_section) */
-    --proj-1: #B585B8;
-    --proj-2: #8BBD8F;
-    --proj-3: #B68E87;
-    --proj-4: #868AB8;
+
+    --proj: #3592B1;
 }
 
 * {
@@ -246,17 +244,19 @@ h1.parcours-title {
     border-radius: 8px;
     font-weight: 600;
     font-size: 0.95rem;
-    color: var(--text-primary);
-    transition: transform 0.2s;
+    color: white; /* Force la couleur du texte en blanc car p-color utilise white */
+    text-decoration: none; /* Supprime le soulignement */
+    transition: transform 0.2s, background-color 0.2s;
+    cursor: pointer;
 }
 
 .project-tag:hover { transform: scale(1.05); }
 
 /* Couleurs aléatoires pour les projets (cycle) */
-.p-color-1 { background-color: var(--proj-1); color: white; }
-.p-color-2 { background-color: var(--proj-2); color: white; }
-.p-color-3 { background-color: var(--proj-3); color: white; }
-.p-color-4 { background-color: var(--proj-4); color: white; }
+.p-color-1 { background-color: var(--proj); color: white; }
+.p-color-2 { background-color: var(--proj); color: white; }
+.p-color-3 { background-color: var(--proj); color: white; }
+.p-color-4 { background-color: var(--proj); color: white; }
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
@@ -348,5 +348,79 @@ h1.parcours-title {
     .tag .tooltip-text {
         width: 200px;
         font-size: 0.75rem;
+    }
+}
+
+/* --- Styles spécifiques pour le bloc Stage --- */
+
+/* Le point orange sur la timeline */
+.stage-dot {
+    background: var(--accent-orange) !important;
+}
+
+/* Le titre en orange */
+.stage-title {
+    color: var(--accent-orange) !important;
+    font-size: clamp(1rem, 1.5vw, 1.4rem); /* Un peu plus petit que les titres d'années */
+}
+
+/* La carte du stage : plus compacte et marquée */
+.stage-card {
+    padding: 1.5rem 2rem; /* Padding réduit par rapport aux semestres (2rem) */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.stage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.stage-header h3 {
+    font-family: "myFont", sans-serif;
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin: 0;
+    border: none;
+}
+
+.stage-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    max-width: 700px;
+}
+
+/* Bouton discret pour aller vers la page */
+.btn-stage {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background-color: var(--accent-orange);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: transform 0.2s, opacity 0.2s;
+    align-self: flex-start;
+}
+
+.btn-stage:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* Adaptation mobile pour le bouton */
+@media (max-width: 768px) {
+    .stage-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .btn-stage {
+        width: 100%;
+        text-align: center;
     }
 }

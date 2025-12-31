@@ -48,7 +48,7 @@
           Ma motivation première est de sensibiliser aux dangers de la vision par ordinateur 
           et d’encourager à la protection des données personnelles. 
           En effet, si avec des ressources limitées on peut identifier une personne masquée grâce à sa main, 
-          une organisation ou un État, disposant de moyens bien plus importants, pourrait le faire à grande échelle.
+          une organisation disposant de moyens bien plus importants, pourrait le faire à grande échelle.
         </p>
         <p>
           Par ailleurs, la reconnaissance faciale, par l’iris ou par l’empreinte digitale, 
@@ -177,12 +177,23 @@
           <img src="../images/e5.svg" alt="etoil" width="40" class="mini">
         <div class="text">
           <p>
-            c'est dans les backs
+            Ce script Python automatise l'extraction de données massives (web scraping) sur le site Goodreads. En combinant Selenium (pour la navigation et la gestion des cookies) et BeautifulSoup (pour l'analyse du code HTML), il parcourt une soixantaine de listes de lecture spécifiques (ex: "Best Fantasy", "Thriller", "Romance").
+        </p>
+        <p>
+          Pour chaque livre identifié dans ces listes, le script collecte des métadonnées précises : titre, auteur, notes moyennes, nombre d'avis, genres, résumé, ISBN, langue et date de publication. Le script gère les erreurs de connexion et sauvegarde les résultats en continu dans un fichier CSV (BooksData.csv) pour éviter toute perte de données.
+        </p>
+        <p>
+          Cette collecte s'inscrit dans le cadre d'une recherche menée à l'Institut Jean Nicod (ENS), l'objectif étant de fournir un corpus de données bibliométriques structurées à une chercheuse pour ses travaux d'analyse.
         </p>
       </div>
     </div>
       <div class="image">
         <img src="../images/goodreads.png" alt="image_test" width="450">
+        <a href="https://github.com/Auregen/2024-projet-final-VALDECASA-AURELIEN/blob/main/Scraping%20Goodreads/notebook.ipynb" class="lien_case" target="_blank">
+          <div class="mini_case5">
+            <p>Lien vers le notebook</p>
+          </div>
+        </a>
       </div>
       </div>
   </article>

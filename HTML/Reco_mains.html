@@ -11,15 +11,9 @@
 
   <nav>
     <ul>
-      <li><a href="Menu.html" class="lien_nav">
-        Menu
-      </a></li>
-      <li><a href="Mon_stage.html" class="lien_nav">
-        Stage
-      </a></li>
-      <li><a href="Mon_parcours.html" class="lien_nav">
-        Parcours
-      </a></li>
+      <li><a href="Menu.html" class="lien_nav">Menu</a></li>
+      <li><a href="Mon_stage.html" class="lien_nav">Stage</a></li>
+      <li><a href="Mon_parcours.html" class="lien_nav">Parcours</a></li>
       <li class="dropdown">
         <a href="Mes_projets.html" class="lien_nav">Projets</a>
           <ul class="dropdown-content">
@@ -28,7 +22,6 @@
               <li><a class="burger_box" href="Mes_projets.html#sandbagging">Phénomène de "Sandbagging"</a></li>
               <li><a class="burger_box" href="Mes_projets.html#minecraft">Musée virtuel sur Minecraft</a></li>
               <li><a class="burger_box" href="Mes_projets.html#scraping">Scraping de Goodreads</a></li>
-
           </ul>
       </li>
     </ul>
@@ -36,24 +29,46 @@
 
     <div class="container">
         <h1>Classifications des mains</h1>
-        <H3>Voici une illustration de ce que fait mon modèle de reconnaissance de mains. Plus bas, vous pourrez voir le devlog de ce projet.</h3>
+
+        <article>
+            <h2>Le concept : Vie privée et surveillance biométrique</h2>
+            <div class="partie-explicative">
+                <div class="bloc-texte">
+                    <p>
+                        L'objectif de ce projet n'était pas seulement technique, mais aussi éthique. Je voulais démontrer qu'avec des moyens modestes (ceux d'un étudiant), il est possible d'identifier une personne à partir d'une simple photo de sa main.
+                    </p>
+                    <p>
+                        Si je peux le faire avec des ressources limitées, des organisations disposant de moyens importants peuvent le faire à grande échelle, même sur des personnes masquées. Contrairement au visage ou à l'iris, la main est une donnée biométrique souvent négligée mais très riche en informations.
+                    </p>
+                    <p>
+                        Le but de ce projet est de construire un modèle<sup><a href="#def-modele" id="ref-modele" style="color: black; text-decoration: none;">1</a></sup> qui arrive à associer différentes photos de mains d'une même personne ensemble.
+                        Pour une meilleure compréhension, vous pourrez voir juste en dessous une animation et une présentation des étapes de ce projet. Enfin, le DevLog est disponible à la fin de cette page. 
+                    </p>
+                </div>
+                <div class="bloc-image">
+                    <img src="../images/security.png" alt="Concept surveillance" width="450">
+                </div>
+            </div>
+        </article>
+
+        <h3>Voici une illustration de ce que fait mon modèle de reconnaissance de mains.</h3>
         
-<div class="controls-panel">
+        <div class="controls-panel">
             <div class="control-group">
                 <div class="control-item">
                     <label for="classCount">Nombre de classes :</label>
-                    <input type="number" id="classCount" min="2" max="10" value="4">
-                    <span>Entre 2 et 10</span>
+                    <input type="number" id="classCount" min="2" max="9" value="4">
+                    <span>Entre 2 et 9</span>
                 </div>
                 <div class="control-item">
                     <label for="imagesPerClass">Mains par classe :</label>
-                    <input type="number" id="imagesPerClass" min="1" max="10" value="5">
-                    <span>Entre 1 et 10</span>
+                    <input type="number" id="imagesPerClass" min="3" max="9" value="6">
+                    <span>Entre 3 et 9</span>
                 </div>
                 <div class="control-item">
                     <label for="imageSize">Taille des images :</label>
-                    <input type="number" id="imageSize" min="50" max="120" value="70">
-                    <span>Entre 50 et 120px</span>
+                    <input type="number" id="imageSize" min="50" max="90" value="70">
+                    <span>Entre 50 et 90px</span>
                 </div>
             </div>
             
@@ -72,74 +87,142 @@
         </div>
     
         <button id="randomizeBtn" disabled style="display: none;">Disposition Aléatoire</button>
-    <div class="section-resultats">
-        <h2>Résultats</h2>
+
+        <article>
+            <h2>Première approche et limites techniques</h2>
+            <div class="partie-explicative">
+                <div class="bloc-image">
+                    <img src="../images/data_blanc.png" alt="Premiers résultats CNN" width="450">
+                </div>
+                <div class="bloc-texte">
+                    <p>
+                        J'ai débuté avec une architecture CNN<sup><a href="#def-cnn" id="ref-cnn" style="color: black; text-decoration: none;">2</a></sup> classique sur TensorFlow<sup><a href="#def-tf" id="ref-tf" style="color: black; text-decoration: none;">3</a></sup>. J'ai rapidement rencontré des contraintes matérielles qui m'ont forcé à migrer vers PyTorch<sup><a href="#def-pytorch" id="ref-pytorch" style="color: black; text-decoration: none;">4</a></sup> pour exploiter l'accélération GPU<sup><a href="#def-gpu" id="ref-gpu" style="color: black; text-decoration: none;">5</a></sup> car j'avais des problèmes de compatibilité entre TensorFlow et ma machine.
+                    </p>
+                    <p>
+                        En utilisant le <em>Hands and Palm Dataset</em>, j'ai obtenu des résultats prometteurs (82% d'accuracy<sup><a href="#def-accuracy" id="ref-accuracy" style="color: black; text-decoration: none;">6</a></sup>). Cependant, ces résultats étaient trompeurs : le modèle apprenait dans un environnement aseptisé (même lumière, même fond) qui ne reflétait pas la réalité d'une surveillance en conditions réelles.
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <article>
+            <h2>Le piège de l'environnement</h2>
+            <div class="partie-explicative">
+                <div class="bloc-texte">
+                    <p>
+                        Pour tester la robustesse du modèle, je suis passé au dataset BMPD et à mes propres photos, introduisant des variations d'angle et d'éclairage. L'accuracy a bondi à 98,76%.
+                    </p>
+                    <p>
+                        En analysant les données, j'ai suspecté que le modèle ne reconnaissait pas les mains, mais l'arrière-plan des images qui restait fixe pour chaque personne. Le réseau de neurones<sup><a href="#def-nn" id="ref-nn" style="color: black; text-decoration: none;">7</a></sup> "trichait" en utilisant le contexte plutôt que la biométrie.
+                    </p>
+                </div>
+                <div class="bloc-image">
+                    <img src="../images/mains_fonds.png" alt="Biais de l'environnement" width="450">
+                </div>
+            </div>
+        </article>
+
+        <article>
+            <h2>La solution : Extraction de la zone d'intérêt (ROI)</h2>
+            <div class="partie-explicative">
+                <div class="bloc-image">
+                    <img src="../images/2mains.png" alt="Processus ROI" width="450">
+                </div>
+                <div class="bloc-texte">
+                    <p>
+                        Pour forcer le modèle à se concentrer uniquement sur la main, j'ai dû développer un algorithme de "Region of Interest" (ROI<sup><a href="#def-roi" id="ref-roi" style="color: black; text-decoration: none;">8</a></sup>). Après avoir tenté d'utiliser des solutions existantes obsolètes, j'ai codé mon propre script avec OpenCV<sup><a href="#def-opencv" id="ref-opencv" style="color: black; text-decoration: none;">9</a></sup>.
+                    </p>
+                    <p>
+                        J'ai combiné plusieurs techniques de vision par ordinateur : segmentation par contraste et couleur, ainsi que des opérations de dilatation<sup><a href="#def-dilatation" id="ref-dilatation" style="color: black; text-decoration: none;">10</a></sup> et d'érosion<sup><a href="#def-erosion" id="ref-erosion" style="color: black; text-decoration: none;">11</a></sup> pour créer un masque noir parfait qui supprime totalement l'arrière-plan.
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <article>
+            <h2>Résultats</h2>
+            <div class="partie-explicative">
+                <div class="bloc-texte" style="text-align: justify; max-width: 800px; margin: 0 auto;">
+                    <p>
+                        Une fois le fond supprimé, l'accuracy a chuté de 98% (biaisé) à environ 81-85%. Ce chiffre est certes plus bas, mais il est fiable : il prouve que le modèle identifie désormais réellement les caractéristiques de la main.
+                    </p>
+                    <p>
+                        J'ai également observé que séparer les mains gauches et droites dans des classes distinctes améliorait la performance (87,73% pour la main droite), car je suppose que les lignes de la main diffèrent significativement selon le côté.
+                    </p>
+                    <p>
+                        Une accuracy de plus de 80% pour plusieurs centaines de mains dans un environnement semi-controlé prouve qu'il est théoriquement possible de reconnaître une personne grâce à sa main. Et donc, ce projet pourrait être élargi et amélioré en y mettant plus de ressources (humaines et materielles).
+                    </p>
+                </div>
+                </div>
+        </article>
+
+        <div class="section-resultats">
             <table border="1" cellspacing="0" cellpadding="5">
-            <thead>
-                <tr>
-                    <th>Dataset</th>
-                    <th>Expériences</th>
-                    <th>Nb images</th>
-                    <th>Nb classes</th>
-                    <th>Accuracy</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Hands and Palm Images Dataset</td>
-                    <td>Prototype TF (CPU)</td>
-                    <td>216</td>
-                    <td>8</td>
-                    <td>68%</td>
-                </tr>
-                <tr>
-                    <td>Hands and Palm Images Dataset</td>
-                    <td>Migration PyTorch (CV 5-fold)</td>
-                    <td>520</td>
-                    <td>19</td>
-                    <td>moy. fold 82%</td>
-                </tr>
-                <tr>
-                    <td>Données personnelles</td>
-                    <td>Test variabilité</td>
-                    <td>80</td>
-                    <td>4</td>
-                    <td>moy. fold 82%, test 100%</td>
-                </tr>
-                <tr>
-                    <td>BMPD</td>
-                    <td>Entraînement large</td>
-                    <td>1 612</td>
-                    <td>41</td>
-                    <td>test 98,76%</td>
-                </tr>
-                <tr>
-                    <td>BMPD</td>
-                    <td>Avec ROI (fond noir)</td>
-                    <td>1 612</td>
-                    <td>41</td>
-                    <td>test 81,11%</td>
-                </tr>
-                <tr>
-                    <td>BMPD</td>
-                    <td>Après ROI et séparé par côté</td>
-                    <td>800 (G) / 812 (D)</td>
-                    <td>40 (G) / 41 (D)</td>
-                    <td>Gauche: 85,00% <br> Droite: 87,73%</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-        <div class="align_button">
-            <a href="fiche_MVP.pdf" class="lien_case" target="_blank">
+                <thead>
+                    <tr>
+                        <th>Dataset</th>
+                        <th>Expériences</th>
+                        <th>Nb images</th>
+                        <th>Nb classes</th>
+                        <th>Accuracy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hands and Palm Images Dataset</td>
+                        <td>Prototype TF (CPU)</td>
+                        <td>216</td>
+                        <td>8</td>
+                        <td>68%</td>
+                    </tr>
+                    <tr>
+                        <td>Hands and Palm Images Dataset</td>
+                        <td>Migration PyTorch (CV 5-fold)</td>
+                        <td>520</td>
+                        <td>19</td>
+                        <td>moy. fold 82%</td>
+                    </tr>
+                    <tr>
+                        <td>Données personnelles</td>
+                        <td>Test variabilité</td>
+                        <td>80</td>
+                        <td>4</td>
+                        <td>moy. fold 82%, test 100%</td>
+                    </tr>
+                    <tr>
+                        <td>BMPD</td>
+                        <td>Entraînement large</td>
+                        <td>1 612</td>
+                        <td>41</td>
+                        <td>test 98,76%</td>
+                    </tr>
+                    <tr>
+                        <td>BMPD</td>
+                        <td>Avec ROI (fond noir)</td>
+                        <td>1 612</td>
+                        <td>41</td>
+                        <td>test 81,11%</td>
+                    </tr>
+                    <tr>
+                        <td>BMPD</td>
+                        <td>Après ROI et séparé par côté</td>
+                        <td>800 (G) / 812 (D)</td>
+                        <td>40 (G) / 41 (D)</td>
+                        <td>Gauche: 85,00% <br> Droite: 87,73%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+                <div class="align_button">
+            <a href="../pdf/fiche_MVP.pdf" class="lien_case" target="_blank">
             <div class="mini_case">
-                <p>Fiche du MVP</p>
+                <p>MVP</p>
             </div>
             </a>
 
             <a href="https://www.kaggle.com/code/auregen/mvp-notebook" class="lien_case" target="_blank">
             <div class="mini_case">
-                <p>Lien vers notebook</p>
+                <p>Notebook</p>
             </div>
             </a>
 
@@ -149,84 +232,126 @@
             </div>
             </a>
 
-        </div>
-        <h2>Dev log</h2>
-        
-
-        <h3>14/09/2025 - 28/09/2025 :</h3>
-
-        <p>J’ai recherché un dataset de mains sur Kaggle et j’ai trouvé Hands and Palm Dataset. Il y en avait d’autres, mais celui-ci proposait aussi des images du dos de la main, ce que je trouvais plus intéressant pour mon projet. Il contient 11 076 images, avec environ 30 images par personne. Le principal problème de ce dataset est que les photos sont normalisées : toutes prises sous le même angle, avec la même lumière et un fond blanc uniforme. Je m'en contenterai pour l'instant.</p>
-
-        <p>Je suis ensuite allé sur la documentation de TensorFlow et j’ai suivi les étapes pour construire un CNN de base. Je l’ai adapté afin d’utiliser mes images de mains à la place du dataset d’exemple. J’ai lancé l’entraînement sur CPU avec 216 images (8 classes), obtenant une accuracy de 68%. J’ai voulu utiliser mon GPU, mais j’ai rencontré des problèmes de compatibilité : j’ai perdu une après-midi à mettre à jour les drivers et à installer les bonnes versions des bibliothèques. Finalement, j’ai compris que ma carte graphique était probablement trop ancienne.</p>
-
-        <p>Après en avoir discuté, on m’a conseillé d’utiliser PyTorch. J’ai donc réécrit mon code pour garder la même architecture CNN mais en PyTorch, et tout a fonctionné correctement. Cette fois, j’ai utilisé 520 images réparties sur 19 classes. J’ai conservé le même modèle, mais j’ai appliqué une validation croisée (5 folds), puisque ma nouvelle configuration me permettait d’aller plus vite. J’ai obtenu une accuracy moyenne de 82%, avec un maximum de 87%. J’étais assez surpris de ces bons résultats, sachant que l’architecture restait simple. J'ai pensé que cela venait du fait que les photos du dataset étaient très normalisées.</p>
-
-        <p>J’ai cherché d’autres datasets mieux adaptés à ma tâche, mais je n’en ai pas trouvé. J’en ai vu un intéressant, mais il nécessite de contacter un laboratoire à Singapour, et je ne sais pas si c’est pertinent pour mon projet.  
-        En attendant, trois amis ont accepté que je prenne en photo leurs mains, auxquelles j’ai ajouté les miennes : environ 20 photos par main, avec des variations de lumière, d’angle, de fond et de position. J’ai entraîné le modèle sur ces données et obtenu une accuracy moyenne de 82%, avec un meilleur modèle à 94%. Comme j’avais peu de données, j'ai suspecté un overfitting et j’ai donc constitué un petit jeu de test avec 18 photos que le modèle n’avait jamais vues. Résultat : 100% d’accuracy sur le test, ce qui m’a encore une fois surpris.</p>
-
-        <p>Prochainement, je compte prendre en photo les mains d’autres personnes, mais aussi refaire des photos des mêmes personnes à différents moments. Cela permettra de voir si l’intervalle de temps joue un rôle (ongles coupés, vernis, bagues, petites blessures, etc.). Avec plus de données et davantage de classes, la tâche deviendra sûrement plus difficile.</p>
-
-        <h3>11/10/2025 :</h3>
-
-        <p>Je n’arrive pas à obtenir assez de données en prenant moi-même les photos. Je suis donc parti à la recherche d’un nouveau jeu de données. J’ai trouvé sur Kaggle un ensemble d’images de mains dans différentes positions, à différentes distances et sous des éclairages variés. Les photos ne sont donc pas normalisées, sauf pour le fond qui reste toujours le même.  
-        Je me suis dit que, de toute façon, le fond n’était pas très important, puisqu’il existe des modèles ROI (Region Of Interest) qui consistent à recadrer l’image avant de la donner au CNN, afin de ne conserver que la partie intéressante. C’est ce que je compte faire plus tard. À ce moment-là, que le fond soit uni ou non, le CNN ne le verra pas. Il faudra simplement vérifier que le modèle parvient bien à recadrer les mains lorsque le fond n’est pas uniforme, afin de pouvoir conclure que ce projet est viable.</p>
-
-        <h3>12/10/2025 :</h3>
-
-        <p>J’ai effectué quelques modifications sur le dataset pour pouvoir exécuter mon code plus facilement. Tout a très bien fonctionné et j’ai pu entraîner un modèle sur 1 612 images de mains (41 classes). En plus, les courbes de loss et d’accuracy sont plutôt jolies.  
-        On obtient 98,76 % d’accuracy sur le jeu de test (319 bonnes réponses sur 323).  
-        Grâce à ce nouveau dataset, je sais maintenant qu’il ne s’agit pas d’overfitting.</p>
-
-        <p>En revanche, je me suis rendu compte qu’il y avait des mains droites et gauches pour une même personne. Je pensais que le modèle se basait sur les lignes de la main, mais celles-ci diffèrent entre la main droite et la main gauche, ce qui m’interroge.</p>
-
-        <p>Pour la prochaine fois, il faudrait que j’essaie de placer les mains droites et gauches dans des classes différentes. Il faudrait aussi que je construise un modèle ROI ou que j’en trouve un adapté sur Internet. Je pense que c’est possible dans les bibliothèques TensorFlow ou PyTorch.</p>
-
-        <div class="image">
-            <img src="image_courbes.png" alt="image_test" width="500">
+            <a href="DevLog_mains.html" class="lien_case">
+            <div class="mini_case">
+                <p>DevLog</p>
+            </div>
+            </a>
         </div>
 
-        <h3>19/10/2025 :</h3>
-
-        <p>J’ai longuement cherché des ROI ou un dataset sur lequel je puisse entraîner un modèle. Sur GitHub, j’ai finalement trouvé <em>“A robust algorithm for extracting ROI from palm images taken by mobile phone”</em>. C’était exactement ce qu’il me fallait ! J’ai tenté d’utiliser ce dépôt et ai rencontré de nombreux bugs. Il y avait des problèmes de version, car l’algorithme utilisait d’anciennes bibliothèques (ce dépôt a sept ans, en même temps…), mais surtout, il contenait du code en C++ qui faisait crasher mon kernel.</p>
-
-        <p>Comme j’apprends le C++, je me suis dit que si le problème venait de Python, il me suffisait d’utiliser le C++. Quelle erreur ! Les bugs se sont enchaînés et j’ai encore perdu plusieurs heures. J’ai donc décidé de créer mon propre système d’extraction de ROI plutôt que d’utiliser un code obsolète.</p>
-
-        <p>J’ai utilisé la bibliothèque CV2, qui permet de manipuler et traiter des images. Au départ, j’ai essayé de différencier la main du fond par la couleur, mais les contours étaient souvent trop proches de la main, avec des doigts rognés. J’ai ensuite utilisé les contrastes : c’était bien mieux, mais le seuil de contraste variait trop d’une image à l’autre. Je me suis alors dit qu’il serait judicieux de fusionner les deux méthodes. Cela fonctionnait encore mieux, mais le problème de seuil persistait : les contrastes devenaient trop imprécis ou, au contraire, trop précis selon la luminosité.</p>
-
-        <p>Je me suis donc arrêté là pour aujourd’hui, et vous pouvez voir le résultat plus bas.  
-        Il faudrait maintenant que je trouve un moyen de faire une moyenne de la luminosité au centre de la photo (c’est-à-dire mesurer à quel point les pixels sont clairs) afin d’adapter chaque image et d’obtenir un seuil cohérent. Je sais que c’est ainsi que les appareils photo ajustent les ISO (sensibilité à la lumière), donc cela ne devrait pas être insurmontable.</p>
-
-        <div class="image">
-            <img src="1main.JPG" alt="image_test" width="200">
-            <img src="2mains.png" alt="image_test" width="600">
+        <div class="glossaire-container">
+            <h3>Glossaire & Définitions</h3>
+            <ol class="liste-glossaire">
+                <li id="def-modele">
+                    <strong>Modèle :</strong> En intelligence artificielle, un modèle est le résultat d'un entraînement. C'est un programme mathématique qui a "appris" à reconnaître des motifs (ici, des mains) à partir d'exemples qu'on lui a fournis. <a href="#ref-modele" class="retour-texte" title="Retour au texte" style="color: black; text-decoration: none;">↩</a>
+                </li>
+                <li id="def-cnn">
+                    <strong>CNN (Convolutional Neural Network) :</strong> Ou "Réseau de Neurones Convolutif". C'est une architecture d'IA spécialement conçue pour analyser des images. Elle imite le fonctionnement du cortex visuel humain pour repérer des formes, des textures et des contours. <a href="#ref-cnn" class="retour-texte" title="Retour au texte" style="color: black; text-decoration: none;">↩</a>
+                </li>
+                <li id="def-tf">
+                    <strong>TensorFlow :</strong> Une bibliothèque logicielle open-source créée par Google, très populaire pour créer et entraîner des modèles d'intelligence artificielle. <a href="#ref-tf" class="retour-texte" title="Retour au texte" style="color: black; text-decoration: none;">↩</a>
+                </li>
+                <li id="def-pytorch">
+                    <strong>PyTorch :</strong> Une autre bibliothèque logicielle open-source (créée par Meta/Facebook). Elle est très appréciée dans la recherche pour sa flexibilité et sa facilité d'utilisation avec les GPU. <a href="#ref-pytorch" class="retour-texte" title="Retour au texte" style="color: black; text-decoration: none;">↩</a>
+                </li>
+                <li id="def-gpu">
+                    <strong>GPU (Graphics Processing Unit) :</strong> La carte graphique de l'ordinateur. Initialement prévue pour les jeux vidéo, sa capacité à faire des milliers de petits calculs en parallèle la rend indispensable pour entraîner des IA rapidement. <a href="#ref-gpu" class="retour-texte" title="Retour au texte" style="color: black; text-decoration: none;">↩</a>
+                </li>
+                <li id="def-accuracy">
+                    <strong>Accuracy (Précision) :</strong> Indicateur de performance qui représente le pourcentage de réponses correctes données par le modèle par rapport au nombre total de tests. <a href="#ref-accuracy" class="retour-texte" title="Retour au texte" style="color: black; text-decoration: none;">↩</a>
+                </li>
+                <li id="def-nn">
+                    <strong>Réseau de neurones :</strong> Système informatique inspiré du cerveau humain. Il est composé de "couches" de nœuds connectés entre eux qui se transmettent de l'information pour résoudre des problèmes complexes. Ici, modèle et réseau de neurones seront confondus<a href="#ref-nn" class="retour-texte" title="Retour au texte" style="color: black; text-decoration: none;">↩</a>
+                </li>
+                <li id="def-roi">
+                    <strong>ROI (Region of Interest) :</strong> Zone d'intérêt. En traitement d'image, cela désigne la partie spécifique de l'image que l'on souhaite analyser (ici, la main), en ignorant le reste (le fond). <a href="#ref-roi" class="retour-texte" title="Retour au texte" style="color: black; text-decoration: none;">↩</a>
+                </li>
+                <li id="def-opencv">
+                    <strong>OpenCV :</strong> Une immense bibliothèque de fonctions de programmation, référence mondiale pour le traitement d'images et la vision par ordinateur en temps réel. <a href="#ref-opencv" class="retour-texte" title="Retour au texte" style="color: black; text-decoration: none;">↩</a>
+                </li>
+                <li id="def-dilatation">
+                    <strong>Dilatation :</strong> Opération mathématique sur une image qui permet d'épaissir ou d'agrandir les zones claires. Utile pour combler les petits trous dans la détection de la main. <a href="#ref-dilatation" class="retour-texte" title="Retour au texte" style="color: black; text-decoration: none;">↩</a>
+                </li>
+                <li id="def-erosion">
+                    <strong>Érosion :</strong> L'inverse de la dilatation. Elle permet d'affiner les zones claires et de supprimer le "bruit" (les petits pixels parasites) autour de la forme principale. <a href="#ref-erosion" class="retour-texte" title="Retour au texte" style="color: black; text-decoration: none;">↩</a>
+                </li>
+            </ol>
         </div>
-        <p>Exemple d'image où ça n'a pas fonctionné :</p>
-        <div class="image">
-            <img src="3mains.png" alt="image_test" width="200">
-        </div>
-        <h3>27/10/2025 :</h3>
-
-        <p>Adapter la luminosité s’est finalement révélée être une mauvaise idée : cela n’a pas résolu le problème. En revanche, j’ai observé dans d’autres codes l’usage fréquent des opérations de dilatation et d’érosion, deux méthodes de la bibliothèque OpenCV permettant de détecter des objets. J’ai donc expérimenté avec ces paramètres, et j’obtiens désormais un résultat satisfaisant. Il n’est pas parfait, car le masque déborde parfois sur la main, mais j’y vois une forme de perturbation : cela évoque la présence d’ombres et reste cohérent avec l’objectif de mon projet, qui consiste à reconnaître une personne à partir d’une photo de sa main, même dans des conditions non contrôlées.  
-            Voici un exemple : </p>
-
-        <div class="image">
-            <img src="devlog_main1.JPG" alt="image_test" width="200">
-            <img src="devlog_main2.JPG" alt="image_test" width="300">
-        </div>
-
-        <h3>28/10/2025 :</h3>
-
-        <p>Avec un fond noir, le modèle a une accuracy de 81.11% sur le test. Ce qui suggère bien qu'il s'aidait du fond pour donner le bon label.  
-            J’ai fait tourner mon modèle sur les mains droites, puis sur les mains gauches.  
-            J’obtiens une précision de 85.62 % sur les mains gauches et de 80.98 % sur les mains droites. Il semble donc que le fait d'avoir deux mains différentes pour une même personne n'impacte pas vraiment le modèle.</p>
-        <p>Je considère que mon projet est désormais bien avancé ; l’objectif principal est maintenant de le rendre accessible. J’ai déjà commencé à concevoir une page web illustrant le fonctionnement du modèle. J’aimerais également qu’il soit entièrement reproductible et bien documenté : je vais donc clarifier le code en le commentant et rédiger une bibliographie répertoriant tous les outils utilisés.</p>
-        <p>Si le temps me le permet, j’aimerais concevoir un meilleur ROI, voire un module capable de détecter automatiquement une main dans une image où ce n’est pas l’objet principal, puis de la passer dans mon modèle. Le principal obstacle reste l’obtention d’un jeu de données contenant des photos complètes de personnes, étiquetées selon leur identité et où les mains sont visibles. Ce serait, à mon avis, l’étape finale de ce projet.</p>
+        <div class="bibliographie-container">
             
-        <h3>29/10/2025 :</h3>
+            <div class="biblio-section">
+                <h3>Articles scientifiques</h3>
+                <ul class="liste-biblio">
+                    <li>
+                        <span class="reference-titre">
+                            <strong>Gao, C., Yang, Z., Jia, W., Leng, L., Zhang, B., & Teoh, A. B. J. (2025).</strong> 
+                            Deep Learning in Palmprint Recognition: A Comprehensive Survey. <em>arXiv preprint arXiv:2501.01166.</em>
+                        </span>
+                        <p class="reference-desc">
+                            Cet article constitue la référence la plus actuelle sur l'état de l'art, couvrant les architectures avancées et les défis de sécurité.
+                        </p>
+                    </li>
 
-        <p>J'ai rendu mon code plus accessible en le mettant dans un seul notebook. Avant, le ROI, le trie des images gauche et droite ainsi que l'entrainement étaient séparés étant chacun dépendant d'une base de données différentes. Maintenant j'ai une base de donnée et un notebook. J'ai aussi commenté mon code pour qu'il soit plus lisible.  
-            J'ai aussi fait une fonction pour pouvoir entrer une image de mains et avoir les k-mains les plus similaires grâces aux features calculées par le modèle.  
-            J'ai commenté un petit plus mon code pour qu'il soit plus lisible.</p>
+                    <li>
+                        <span class="reference-titre">
+                            <strong>Zhao, Y., Min, H., Lu, J.-T., Jia, W., Gao, J., & Xia, W. (2021).</strong> 
+                            A Performance Evaluation of Classic Convolutional Neural Networks for 2D and 3D Palmprint and Palm Vein Recognition. <em>International Journal of Automation and Computing</em>, 18(1), 18-44.
+                        </span>
+                        <p class="reference-desc">
+                            Ce document fournit l'ossature empirique pour comprendre comment les architectures génériques d'apprentissage profond (d'AlexNet à EfficientNet) performent sur les tâches biométriques palmaires.
+                        </p>
+                    </li>
+
+                    <li>
+                        <span class="reference-titre">
+                            <strong>Ungureanu, A.-S., Salahuddin, S., & Corcoran, P. (2020).</strong> 
+                            Towards Unconstrained Palmprint Recognition on Consumer Devices: A Literature Review. <em>IEEE Access</em>, 8, 86130-86148.
+                        </span>
+                        <p class="reference-desc">
+                            Cette revue marque le pivot de l'industrie vers les environnements mobiles et non contraints, analysant le passage des scanners aux smartphones et les défis inhérents à l'acquisition grand public.
+                        </p>
+                    </li>
+
+                    <li>
+                        <span class="reference-titre">
+                            <strong>Tamrakar, D., & Khanna, P. (2015).</strong> 
+                            Occlusion Invariant Palmprint Recognition with ULBP Histograms. <em>Procedia Computer Science</em>, 54, 491-500.
+                        </span>
+                        <p class="reference-desc">
+                            Cet article fournit les bases des approches statistiques et de la gestion des occlusions.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="biblio-section">
+                <h3>Documentation de bibliothèques</h3>
+                <ul class="liste-docs">
+                    <li>
+                        Pour mieux comprendre les CNN : <br>
+                        <a href="https://cs231n.github.io/convolutional-networks/" target="_blank" class="doc-link">CS231n: Convolutional Neural Networks for Visual Recognition</a>
+                    </li>
+                    <li>
+                        Architecture du CNN (TensorFlow) : <br>
+                        <a href="https://www.tensorflow.org/tutorials/images/cnn?hl=fr" target="_blank" class="doc-link">Tutoriel TensorFlow: Réseaux de neurones convolutifs</a>
+                    </li>
+                    <li>
+                        OpenCV - Morphologie (Erosion/Dilatation) : <br>
+                        <a href="https://docs.opencv.org/3.4/db/df6/tutorial_erosion_dilatation.html" target="_blank" class="doc-link">Documentation OpenCV: Erosion and Dilation</a>
+                    </li>
+                    <li>
+                        OpenCV - Contraste : <br>
+                        <a href="https://docs.opencv.org/3.4/d3/dc1/tutorial_basic_linear_transform.html" target="_blank" class="doc-link">Documentation OpenCV: Basic Linear Transforms</a>
+                    </li>
+                    <li>
+                        OpenCV - Contours : <br>
+                        <a href="https://docs.opencv.org/3.4/d4/d73/tutorial_py_contours_begin.html" target="_blank" class="doc-link">Documentation OpenCV: Contours in OpenCV</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
     </div>
 </body>
 </html>
