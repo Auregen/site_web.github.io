@@ -10,17 +10,14 @@
 
 @font-face {
     font-family: "Medium";
-    /* Correction de la faute de frappe ici (../) */
     src: url("../polices/SFPRODISPLAYMEDIUM.OTF");
 }
 
 :root {
-    /* Variables basées sur votre écran */
     --base-width: 100vw;
     --base-height: 100vh;
     --scale-factor: min(1, var(--base-width) / 1680);
 
-    /* Variables de couleurs identiques à Mon_parcours */
     --card-bg: #E3DACC;
     --tag-bg: #CEC6B9;
 }
@@ -30,7 +27,6 @@ html {
     font-size: calc(14px + 0.2vw);
 }
 
-/* --- NAVIGATION (Copié strictement de Mon_parcours) --- */
 
 /* Suppression du sélecteur 'nav' avec padding qui créait le décalage */
 
@@ -83,7 +79,6 @@ nav li {
     border-radius: 8px;
     list-style-type: none;
     padding: 0.5rem;
-    /* Positionnement identique à Mon_parcours */
     top: 50%;
     left: 50%;
     transform: translateX(-100%);
@@ -114,7 +109,6 @@ nav li {
     display: block;
 }
 
-/* --- FIN NAVIGATION --- */
 
 body {
     background-color: #F0EEE6;

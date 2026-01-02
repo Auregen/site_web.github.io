@@ -37,14 +37,13 @@
     <h1 class="stage">Analyse du corpus Winogrande</h1>
     <h3 class="sous-titre">Étude des biais et de la robustesse des LLM sur le raisonnement de bon sens</h3>
 
-    <!-- I. INTRODUCTION -->
     <article>
         <h2>I. Le défi du raisonnement de bon sens</h2>
         <div class="partie">
             <div class="image_text">
                 <div class="text">
                     <p>
-                        Le <strong>Winograd Schema Challenge</strong>, proposé en 2012 par Hector Levesque, a été conçu comme une alternative au test de Turing pour mesurer le "raisonnement de bon sens" (<em>common sense reasoning</em>) des machines. Le principe repose sur des phrases contenant un pronom ambigu dont la résolution dépend du contexte.
+                        Le Winograd Schema Challenge, proposé en 2012 par Hector Levesque, a été conçu comme une alternative au test de Turing pour mesurer le "raisonnement de bon sens" (<em>common sense reasoning</em>) des machines. Le principe repose sur des phrases contenant un pronom ambigu dont la résolution dépend du contexte.
                     </p>
                     <p>Par exemple :</p>
                     <blockquote>
@@ -52,15 +51,13 @@
                         Ici, "they" désigne les <em>councilmen</em>. Mais si on remplace "feared" par "advocated", "they" désigne alors les <em>demonstrators</em>.
                     </blockquote>
                     <p>
-                        Si ce test a longtemps été un standard, l'arrivée des modèles comme BERT ou GPT-3 a changé la donne, atteignant des scores supérieurs à 90%. Cependant, cette réussite est suspecte : les modèles comprennent-ils vraiment le sens, ou exploitent-ils des <strong>biais statistiques</strong> ? C'est pour répondre à cette question qu'a été créé <strong>Winogrande</strong> en 2019, un corpus de 44 000 phrases conçu pour être plus robuste.
+                        Si ce test a longtemps été un standard, l'arrivée des modèles comme BERT ou GPT-3 a changé la donne, atteignant des scores supérieurs à 90%. Cependant, cette réussite est suspecte : les modèles comprennent-ils vraiment le sens, ou exploitent-ils des biais statistiques ? C'est pour répondre à cette question qu'a été créé Winogrande en 2019, un corpus de 44 000 phrases conçu pour être plus robuste.
                     </p>
                 </div>
             </div>
-            <!-- Image illustrative si besoin, sinon on laisse le texte prendre la place -->
         </div>
     </article>
 
-    <!-- II. ANALYSE STATISTIQUE -->
     <article>
         <h2>II. Exploration du corpus</h2>
         <div class="partie">
@@ -86,7 +83,6 @@
         </div>
     </article>
 
-    <!-- III. LES SCHÉMAS -->
     <article>
         <h2>III. Détection de Schémas Récurrents</h2>
         <div class="partie">
@@ -96,7 +92,7 @@
                         L'analyse a montré que de nombreuses phrases reposent sur les mêmes mécanismes logiques. Nous avons identifié et classifié plusieurs types de problèmes récurrents :
                     </p>
                     <p><strong>1. Le problème de "Fitting" (Contenant/Contenu) :</strong><br>
-                    Il s'agit de problèmes de taille physique entre deux objets. Nous avons annoté manuellement 400 phrases et entraîné un classifieur qui a détecté <strong>3306 phrases</strong> (sur 40k) relevant de cette logique.<br>
+                    Il s'agit de problèmes de taille physique entre deux objets. Nous avons annoté manuellement 400 phrases et entraîné un classifieur qui a détecté 3306 phrases (sur 40k) relevant de cette logique.<br>
                     <em>Exemple : "Le plat ne rentre pas dans le sac. _ est trop petit."</em>
                     </p>
                     <p><strong>2. Le problème d'Expertise :</strong><br>
@@ -116,13 +112,12 @@
         </div>
     </article>
 
-    <!-- IV. EXPÉRIMENTATIONS LLM -->
     <article>
         <h2>IV. Expérimentations avec les LLMs</h2>
         <div class="partie">
             <div class="text" style="width: 100%;">
                 <p>
-                    Pour tester la robustesse des modèles de langage, nous avons soumis plusieurs LLMs (RoBERTa, Phi-4, Qwen, Mistral, Llama) à des versions <strong>perturbées</strong> du corpus. Notre hypothèse était que si les modèles "comprennent" vraiment les sens des phrases, des changements superficiels ne devraient pas affecter leurs performances.
+                    Pour tester la robustesse des modèles de langage, nous avons soumis plusieurs LLMs (RoBERTa, Phi-4, Qwen, Mistral, Llama) à des versions perturbées du corpus. Notre hypothèse était que si les modèles "comprennent" vraiment les sens des phrases, des changements superficiels ne devraient pas affecter leurs performances.
                 </p>
                 <p><strong>Les perturbations appliquées :</strong></p>
                 <ul>
@@ -136,7 +131,6 @@
         
         <div class="section-resultats">
             <h3>Résultats Complets des Perturbations</h3>
-            <!-- Tableau 1 : Vue d'ensemble tous modèles -->
             <div style="overflow-x: auto; margin-bottom: 2rem;">
                 <table border="1" cellspacing="0" cellpadding="5">
                     <thead>
@@ -276,7 +270,7 @@
         <div class="image_text">
             <div class="text">
                 <p>
-                    En analysant les erreurs commises par <strong>Qwen 14B</strong> et <strong>Phi-4</strong> sur les phrases mixant les genres (un homme et une femme), nous avons distingué deux cas de figure : les erreurs dues à un potentiel biais sociétal et celles dues à une incohérence syntaxique ou sémantique introduite par la perturbation.
+                    En analysant les erreurs commises par Qwen 14B et Phi-4 sur les phrases mixant les genres (un homme et une femme), nous avons distingué deux cas de figure : les erreurs dues à un potentiel biais sociétal et celles dues à une incohérence syntaxique ou sémantique introduite par la perturbation.
                 </p>
                 
                 <h4 style="margin-top: 1.5rem; margin-bottom: 1rem; color: var(--text-secondary);">Exemples de potentiels biais de genre</h4>
@@ -308,13 +302,12 @@
     </div>
 </article>
 
-    <!-- CONCLUSION -->
     <article>
         <h2>Conclusion</h2>
         <div class="partie">
             <div class="text" style="text-align: justify;">
                 <p>
-                    Ce stage a permis de mettre en évidence que <strong>Winogrande n'est pas exempt de biais</strong>. L'analyse exploratoire et les tests par perturbations montrent que les modèles de langage s'appuient souvent sur des indices superficiels (noms, fréquences de mots) ou des schémas logiques répétitifs (fitting, expertise) plutôt que sur une compréhension profonde.
+                    Ce stage a permis de mettre en évidence que Winogrande n'est pas exempt de biais. L'analyse exploratoire et les tests par perturbations montrent que les modèles de langage s'appuient souvent sur des indices superficiels (noms, fréquences de mots) ou des schémas logiques répétitifs (fitting, expertise) plutôt que sur une compréhension profonde.
                 </p>
                 <p>
                     Un résultat surprenant a été observé : dans certains cas, mélanger les genres (un homme et une femme) aide le modèle à trouver la bonne réponse, surpassant parfois les performances sur le corpus original. Cela suggère une interaction complexe entre le biais de genre du modèle et sa capacité à utiliser des pronoms distincts (he/she) comme indices grammaticaux pour résoudre l'ambiguïté.
@@ -334,6 +327,6 @@
   <div id="caption">Utilisez la molette pour zoomer et glissez pour vous déplacer</div>
 </div>
 
-<script src="../script_zoom.js"></script>
+<script src="../JS/script_zoom.js"></script>
 </body>
 </html>

@@ -342,7 +342,6 @@ article h2 {
     }
 }
 
-/* Amélioration de l'accessibilité */
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;

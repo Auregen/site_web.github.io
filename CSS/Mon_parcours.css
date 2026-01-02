@@ -9,9 +9,9 @@
 }
 
 :root {
-    --primary-bg: #F0EEE6;       /* Fond clair */
-    --card-bg: #E3DACC;          /* Fond des cartes (tonalité dropdown) */
-    --tag-bg: #CEC6B9;           /* Fond des cours (gris beige) */
+    --primary-bg: #F0EEE6;       
+    --card-bg: #E3DACC;         
+    --tag-bg: #CEC6B9;           
     --text-primary: #000000;
     --text-secondary: #6d675e;
     --accent-blue: #3592B1; 
@@ -35,7 +35,6 @@ body {
     overflow-x: hidden;
 }
 
-/* --- Navigation (Identique à tes autres pages) --- */
 nav ul {
     display: flex;
     font-weight: 500;
@@ -143,7 +142,7 @@ h1.parcours-title {
 /* Le point sur la timeline */
 .year-dot {
     position: absolute;
-    left: 29px; /* Ajusté pour centrer sur la ligne de 40px (40px de left + 2px de demi-width - 13px de demi-dot) */
+    left: 29px; 
     top: 0;
     width: 20px;
     height: 20px;
@@ -208,7 +207,7 @@ h1.parcours-title {
 }
 
 .tag {
-    background: var(--tag-bg); /* Couleur unie sobre */
+    background: var(--tag-bg); 
     padding: 0.4rem 0.8rem;
     border-radius: 8px;
     font-size: 0.95rem;
@@ -244,7 +243,7 @@ h1.parcours-title {
     border-radius: 8px;
     font-weight: 600;
     font-size: 0.95rem;
-    color: white; /* Force la couleur du texte en blanc car p-color utilise white */
+    color: white; 
     text-decoration: none; /* Supprime le soulignement */
     transition: transform 0.2s, background-color 0.2s;
     cursor: pointer;
@@ -252,7 +251,7 @@ h1.parcours-title {
 
 .project-tag:hover { transform: scale(1.05); }
 
-/* Couleurs aléatoires pour les projets (cycle) */
+
 .p-color-1 { background-color: var(--proj); color: white; }
 .p-color-2 { background-color: var(--proj); color: white; }
 .p-color-3 { background-color: var(--proj); color: white; }
@@ -321,7 +320,7 @@ h1.parcours-title {
     font-weight: 400;
     line-height: 1.4;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    pointer-events: none; /* Évite les bugs si la souris glisse dessus */
+    pointer-events: none; 
 }
 
 /* La petite flèche en bas de la bulle */
@@ -364,9 +363,8 @@ h1.parcours-title {
     font-size: clamp(1rem, 1.5vw, 1.4rem); /* Un peu plus petit que les titres d'années */
 }
 
-/* La carte du stage : plus compacte et marquée */
 .stage-card {
-    padding: 1.5rem 2rem; /* Padding réduit par rapport aux semestres (2rem) */
+    padding: 1.5rem 2rem; 
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -394,7 +392,6 @@ h1.parcours-title {
     max-width: 700px;
 }
 
-/* Bouton discret pour aller vers la page */
 .btn-stage {
     display: inline-block;
     padding: 0.4rem 1rem;

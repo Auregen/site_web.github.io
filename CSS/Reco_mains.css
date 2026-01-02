@@ -263,22 +263,17 @@ button:disabled {
 }
 
 /* Conteneur d'Images Responsive */
-/* ... (Début du fichier identique) ... */
 
-/* Modification du conteneur pour la hauteur dynamique et le centrage */
 #image-container {
     position: relative;
     width: 100%;
-    /* On remplace la hauteur fixe par min-height + auto */
     min-height: 400px;
     height: auto;
     background: var(--panel-bg);
     border-radius: clamp(1.5rem, 4vw, 2rem);
-    /* Flexbox pour centrer le gros bouton "Charger" */
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Pour garder les images dans les coins arrondis */
     overflow: hidden; 
     padding: clamp(1rem, 2.5vw, 1.25rem);
     margin-bottom: clamp(1rem, 3vw, 1.5rem);
@@ -300,7 +295,6 @@ button:disabled {
     transform: scale(1.05);
 }
 
-/* ... (Reste du fichier identique) ... */
 
 .image-item {
     position: absolute;
@@ -492,7 +486,7 @@ img {
 .section-resultats {
     margin: 0 auto clamp(1.5rem, 4vw, 2rem);
     max-width: min(95%, 1200px);
-    overflow-x: auto; /* Indispensable pour le responsive sur mobile */
+    overflow-x: auto; /* pour le responsive sur mobile */
 }
 
 table {
@@ -515,21 +509,18 @@ thead th {
 
 /* Corps du tableau */
 tbody td {
-    /* Pas de couleur de fond, direct sur le fond de page */
     color: #57524B;
     padding: clamp(1rem, 1.5vw, 1.25rem);
     font-size: clamp(0.9rem, 1.2vw, 1rem);
-    border-bottom: 1px solid var(--control-bg); /* Séparation fine */
+    border-bottom: 1px solid var(--control-bg); 
 }
 
-/* Retrait de la dernière bordure pour le bas du tableau */
 tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* Colonne Accuracy : Style standard (plus de bleu) */
 tbody td:last-child {
-    font-weight: bold; /* Je garde juste le gras pour la lisibilité, dis-moi si tu veux l'enlever */
+    font-weight: bold; 
     color: #57524B
 }
 
@@ -565,7 +556,6 @@ tbody td:last-child {
     flex-wrap: wrap;         /* Optionnel : permet aux boutons de passer à la ligne sur mobile */
 }
 
-/* --- NOUVELLES SECTIONS EXPLICATIVES (Style alterné) --- */
 
 .partie-explicative {
     display: flex;
@@ -583,7 +573,7 @@ tbody td:last-child {
     text-align: justify;
     font-size: clamp(1rem, 1.5vw, 1.125rem);
     line-height: 1.6;
-    min-width: 300px; /* Évite que le texte soit trop écrasé */
+    min-width: 300px; 
 }
 
 .bloc-image {
@@ -597,8 +587,8 @@ tbody td:last-child {
     max-width: 100%;
     height: auto;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Petite ombre esthétique */
-    margin: 0; /* On annule les marges par défaut si nécessaire */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+    margin: 0; 
 }
 
 /* RESPONSIVE : Passage en colonne sur tablette et mobile */
@@ -609,14 +599,7 @@ tbody td:last-child {
         gap: 2rem;
     }
 
-    /* On force l'image à se mettre au-dessus ou en-dessous selon ton goût.
-       Ici, l'ordre naturel du HTML sera respecté (l'image passe au-dessus ou en-dessous selon où elle est codée).
-       Si tu veux que l'image soit TOUJOURS au-dessus du texte sur mobile, décommente les lignes ci-dessous : 
-    */
-    /*
-    .bloc-image { order: -1; }
-    .bloc-texte { order: 1; }
-    */
+
 
     .bloc-texte {
         text-align: left; /* Ou center si tu préfères */
@@ -639,9 +622,11 @@ tbody td:last-child {
 }
 
 .glossaire-container h3 {
-    margin-top: 0;
-    text-align: left; /* Alignement à gauche pour les titres de section */
-    padding-left: 1rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    text-align: left;
+    padding: 0;
+    font-size: 1.4rem;
 }
 
 .liste-glossaire {
@@ -671,7 +656,7 @@ tbody td:last-child {
     left: 0;
     top: 0;
     font-weight: bold;
-    color: var(--text-primary); /* Noir comme demandé */
+    color: var(--text-primary); 
     font-family: "Medium", sans-serif;
 }
 
@@ -711,13 +696,12 @@ sup a:hover {
     color: #B585B8;
 }
 
-/* --- SECTION BIBLIOGRAPHIE (Style Minimaliste Large) --- */
+/* --- SECTION BIBLIOGRAPHIE --- */
 
 .bibliographie-container {
     margin-top: 3rem;
     padding-top: 2rem;
     border-top: 1px solid var(--control-bg);
-    /* Largeur alignée avec le reste du contenu */
     width: 100%;
     max-width: min(95%, 1200px);
     margin-left: auto;

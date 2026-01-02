@@ -263,23 +263,18 @@ button:disabled {
     box-shadow: none;
 }
 
-/* Conteneur d'Images Responsive */
-/* ... (Début du fichier identique) ... */
 
-/* Modification du conteneur pour la hauteur dynamique et le centrage */
+
 #image-container {
     position: relative;
     width: 100%;
-    /* On remplace la hauteur fixe par min-height + auto */
     min-height: 400px;
     height: auto;
     background: var(--panel-bg);
     border-radius: clamp(1.5rem, 4vw, 2rem);
-    /* Flexbox pour centrer le gros bouton "Charger" */
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Pour garder les images dans les coins arrondis */
     overflow: hidden; 
     padding: clamp(1rem, 2.5vw, 1.25rem);
     margin-bottom: clamp(1rem, 3vw, 1.5rem);
@@ -301,7 +296,6 @@ button:disabled {
     transform: scale(1.05);
 }
 
-/* ... (Reste du fichier identique) ... */
 
 .image-item {
     position: absolute;
@@ -493,7 +487,7 @@ img {
 .section-resultats {
     margin: 0 auto clamp(1.5rem, 4vw, 2rem);
     max-width: min(95%, 1200px);
-    overflow-x: auto; /* Indispensable pour le responsive sur mobile */
+    overflow-x: auto; 
 }
 
 table {
@@ -528,9 +522,8 @@ tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* Colonne Accuracy : Style standard (plus de bleu) */
 tbody td:last-child {
-    font-weight: bold; /* Je garde juste le gras pour la lisibilité, dis-moi si tu veux l'enlever */
+    font-weight: bold; 
     color: #57524B
 }
 
@@ -562,11 +555,10 @@ tbody td:last-child {
     display: flex;           /* Active le mode flexible */
     flex-direction: row;     /* Aligne les éléments horizontalement (par défaut) */
     gap: 1rem;               /* Crée un espace de 1rem entre chaque bouton */
-    justify-content: center; /* Optionnel : centre les boutons horizontalement */
-    flex-wrap: wrap;         /* Optionnel : permet aux boutons de passer à la ligne sur mobile */
+    justify-content: center; 
+    flex-wrap: wrap;         
 }
 
-/* --- NOUVELLES SECTIONS EXPLICATIVES (Style alterné) --- */
 
 .partie-explicative {
     display: flex;
@@ -598,8 +590,8 @@ tbody td:last-child {
     max-width: 100%;
     height: auto;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Petite ombre esthétique */
-    margin: 0; /* On annule les marges par défaut si nécessaire */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+    margin: 0; 
 }
 
 /* RESPONSIVE : Passage en colonne sur tablette et mobile */
@@ -610,17 +602,10 @@ tbody td:last-child {
         gap: 2rem;
     }
 
-    /* On force l'image à se mettre au-dessus ou en-dessous selon ton goût.
-       Ici, l'ordre naturel du HTML sera respecté (l'image passe au-dessus ou en-dessous selon où elle est codée).
-       Si tu veux que l'image soit TOUJOURS au-dessus du texte sur mobile, décommente les lignes ci-dessous : 
-    */
-    /*
-    .bloc-image { order: -1; }
-    .bloc-texte { order: 1; }
-    */
+
 
     .bloc-texte {
-        text-align: left; /* Ou center si tu préfères */
+        text-align: left; 
         min-width: auto;
         width: 100%;
     }
