@@ -1,11 +1,11 @@
 @font-face {
     font-family: "myFont";
-    src: url("../polices/Helvetica-Bold.ttf");
+    src: url("../fonts/Helvetica-Bold.ttf");
 }
 
 @font-face {
     font-family: "Medium";
-    src: url("../polices/SFPRODISPLAYMEDIUM.OTF");
+    src: url("../fonts/SFPRODISPLAYMEDIUM.OTF");
 }
 
 

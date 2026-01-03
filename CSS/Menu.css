@@ -1,16 +1,16 @@
 @font-face {
     font-family: "Rounded";
-    src: url("../polices/SF-Pro-Rounded-Medium.otf");
+    src: url("../fonts/SF-Pro-Rounded-Medium.otf");
 }
 
 @font-face {
     font-family: "Regular";
-    src: url("../polices/SFPRODISPLAYREGULAR.OTF");
+    src: url("../fonts/SFPRODISPLAYREGULAR.OTF");
 }
 
 @font-face {
     font-family: "Medium";
-    src: url("../polices/SFPRODISPLAYMEDIUM.OTF");
+    src: url("../fonts/SFPRODISPLAYMEDIUM.OTF");
 }
 
 :root {
