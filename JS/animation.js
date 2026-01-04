@@ -23,7 +23,7 @@ async function loadAllCSV() {
         statusText.textContent = 'Chargement du CSV...';
         
         // CORRECTION ICI : "../dataset.csv" car le HTML est dans un sous-dossier
-        const response = await fetch('../données/dataset.csv');
+        const response = await fetch('../data/dataset.csv');
         
         if (!response.ok) throw new Error("Fichier dataset.csv introuvable");
 
