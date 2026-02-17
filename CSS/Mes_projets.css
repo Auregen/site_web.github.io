@@ -356,7 +356,9 @@ article h2 {
 .mini_case2,
 .mini_case3,
 .mini_case4,
-.mini_case5
+.mini_case5,
+.mini_case6,
+.mini_case7
  {
     padding: 1rem;
     border-radius: 10px;
@@ -372,6 +374,9 @@ article h2 {
 .mini_case3:hover { background-color: #B68E87; }
 .mini_case4:hover { background-color: #868AB8; }
 .mini_case5:hover { background-color: #84B8B7; }
+.mini_case6:hover { background-color: #d6c9b1; }
+.mini_case7:hover { background-color: #d6c9b1; }
+
 
 .lien_case {
     text-decoration: none;
